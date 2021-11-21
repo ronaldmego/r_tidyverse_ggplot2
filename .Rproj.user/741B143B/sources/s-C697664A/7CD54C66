@@ -3,7 +3,7 @@
     "path": "D:/Documents/GitHub/r_tidyverse_ggplot2/script/rmarkdown_tidyverse.Rmd",
     "project_path": "script/rmarkdown_tidyverse.Rmd",
     "type": "r_markdown",
-    "hash": "1537972235",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1637420479707.0,
@@ -13,16 +13,16 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "43,0",
-        "scrollLine": "29",
-        "last_setup_crc32": "BEBF0764bb338d19"
+        "cursorPosition": "76,0",
+        "scrollLine": "72",
+        "last_setup_crc32": "C697664Abb338d19"
     },
     "folds": "",
-    "lastKnownWriteTime": 1637423132,
+    "lastKnownWriteTime": 1637456934,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1637423132703,
+    "last_content_update": 1637456934780,
     "read_only": false,
     "read_only_alternatives": []
 }

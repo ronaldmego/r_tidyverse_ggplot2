@@ -1,3 +1,4 @@
-"0","?flights"
-"0","flights<- nycflights13::flights"
-"0","View(flights)"
+"0","Data(flights)
+"
+"2","Error in Data(flights) : could not find function ""Data""
+"

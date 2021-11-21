@@ -72,8 +72,96 @@ filter (flights , arr_delay <= 60 , dep_delay <= 60) #filtra los vuelos cuyo del
 filter (flights , !(arr_delay>60 | dep_delay>60)) #filtra los vuelos cuyo delay de llegada sea maximo de una hora.usando la ley de morgan
 ```
 
+```{r}
+age.mery<-NA
+is.na(age.mery) #como identificar los NA
+```
 
 ```{r}
+df <- tibble (x = c (1,2,NA,4,5)) #data demo con NA
+filter(df,is.na(x)|x>2) #subconjunto que incluye el NA
+```
+```{r}
+head(flights) # 6 primeras filas
+tail(flights) # 6 ultimas filas
+```
 
+#ARRANGE (de menor a mayor)
+se visualiza que los datos de "flights" no estan ordenados, entonces los reordenamos:
+```{r}
+sorted_date <- arrange(flights , year,month,day)
+tail(sorted_date)
+```
+
+#ARRANGE (de mayor a menor)
+```{r}
+arrange(flights , desc(arr_delay)) %>% head(.) #el que tuvo mas retraso de partida
+arrange(flights, desc(dep_delay)) %>% head(.) #el que tuvo mas retraso de llegada
+```
+
+¿Cómo se ordenan los NA? Siempre se van al final
+```{r}
+arrange(df,x)  #NA se va al final
+arrange(df,desc(x)) #NA se va al final
+```
+```{r}
+#el vuelo que mas recorrio
+arrange(flights , desc(distance)) %>% head(.) 
+```
+
+```{r}
+#Encuentra todos los vuelos que llegaron más de una hora tarde de lo previsto.
+filter(flights , arr_delay>60) 
+```
+```{r}
+#Encuentra todos los vuelos que volaron hacia San Francisco (aeropuertos SFO y OAK)
+filter(flights , dest %in% c("SFO","OAK") ) s
+```
+```{r}
+#Encuentra todos los vuelos operados por United American (UA) o por American Airlines (AA)
+filter(flights , carrier %in% c("UA","AA")) 
+```
+
+```{r}
+#Encuentra todos los vuelos que salieron los meses de primavera (Abril, Mayo y Junio)
+filter(flights , month %in% c(4,5,6)) 
+```
+
+```{r}
+#Encuentra todos los vuelos que llegaron más de una hora tarde pero salieron con menos de una hora de retraso.
+filter(flights , dep_delay<60 & arr_delay>60) 
+```
+```{r}
+#Encuentra todos los vuelos que llegaron más de una hora tarde pero salieron con menos de una hora de retraso.
+filter ( flights , arr_delay > 60 & dep_delay < 60 ) 
+```
+
+```{r}
+#Encuentra todos los vuelos que salieron con más de una hora de retraso pero consiguieron llegar con menos de 30 minutos de retraso (el avión aceleró en el aire)
+filter ( flights , dep_delay > 60 & arr_delay < 30)
+```
+
+```{r}
+#Encuentra todos los vuelos que salen entre medianoche y las 7 de la mañana (vuelos nocturnos).
+filter ( flights , dep_time > 0000 & dep_time<0700) 
+```
+```{r}
+#Investiga el uso de la función between() de dplyr. ¿Qué hace? Puedes usarlo para resolver la sintaxis necesaria para responder alguna de las preguntas anteriores?
+
+filter ( flights , between( dep_time , 0000 , 0700) ) 
+```
+```{r}
+#¿Cuantos vuelos tienen un valor desconocido de dep_time?
+filter( flights , is.na(dep_time))
+```
+```{r}
+#¿Qué variables del dataset contienen valores desconocidos? ¿Qué representan esas filas donde faltan los datos?
+
+colnames(flights)[colSums(is.na(flights)) > 0]
+```
+```{r}
+NA^0
+NA|TRUE
+FALSE&NA
 ```
 

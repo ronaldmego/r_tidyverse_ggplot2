@@ -1,0 +1,2 @@
+"0","#¿Cuantos vuelos tienen un valor desconocido de dep_time?"
+"0","filter( flights , is.na(dep_time))"

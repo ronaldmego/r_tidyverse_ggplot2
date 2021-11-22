@@ -1,0 +1,6 @@
+"0","#tarea5"
+"0","ggplot(data = mpg, mapping = aes(x=displ, y = hwy) ) + "
+"0","  geom_point(mapping = aes(col=drv, shape = drv)) + "
+"0","  geom_smooth(mapping = aes(linetype = drv), se=F)"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

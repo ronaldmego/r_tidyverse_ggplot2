@@ -1,0 +1,3 @@
+"0","#DIAGRAMA DE BARRAS a partir de datos transaccionales"
+"0","ggplot(data=diamonds)+"
+"0","  geom_bar(mapping = aes(x=cut))"

@@ -1,0 +1,4 @@
+"0","italy<-map_data(""italy"")"
+"0","ggplot(data=italy,aes(long,lat,group=group))+"
+"0","  geom_polygon(fill=""blue"",color=""white"")+"
+"0","  coord_quickmap()"

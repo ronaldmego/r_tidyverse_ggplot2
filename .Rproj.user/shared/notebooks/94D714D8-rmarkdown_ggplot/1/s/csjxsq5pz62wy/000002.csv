@@ -1,0 +1,7 @@
+"0","#otro ejemplo, mostrando curva solo para un tipo de coche, "
+"0","#ademas eliminando el intervalo de confianza de la curva"
+"0","ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+"
+"0","  geom_point(mapping=aes(color=class))+"
+"0","  geom_smooth(data=filter(mpg,class==""suv""),se=F)"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

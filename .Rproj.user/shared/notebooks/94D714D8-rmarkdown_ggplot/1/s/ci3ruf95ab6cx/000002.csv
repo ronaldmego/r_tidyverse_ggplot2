@@ -1,0 +1,5 @@
+"0","#se agrega tipo de linea en una tercera variable"
+"0","ggplot(data=mpg)+"
+"0","  geom_smooth(mapping=aes(x=displ,y=hwy,linetype=drv))"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

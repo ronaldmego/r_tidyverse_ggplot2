@@ -1,0 +1,3 @@
+"0","#aprovechando el fill para visualizar una tercera variable."
+"0","ggplot(data = diamonds)+"
+"0","  geom_bar(mapping = aes(x=cut,fill=clarity))"

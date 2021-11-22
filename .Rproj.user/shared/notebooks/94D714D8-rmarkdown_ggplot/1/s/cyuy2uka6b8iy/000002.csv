@@ -1,0 +1,4 @@
+"0","#generando barras a partir de datos transaccionales pero en porcentajes"
+"0","ggplot(data=diamonds)+"
+"0","  geom_bar(mapping=aes(x=cut,y=..prop..,group=1))"
+"0",""

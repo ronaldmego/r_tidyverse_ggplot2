@@ -1,0 +1,3 @@
+"0","#cambiando el color de relleno"
+"0","ggplot(data=diamonds) +"
+"0","  geom_bar(mapping = aes(x=cut,fill=cut))"

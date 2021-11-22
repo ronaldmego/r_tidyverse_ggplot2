@@ -1,0 +1,4 @@
+"0","#tarea6"
+"0","ggplot(data = mpg, mapping = aes(x=displ, y = hwy) ) + "
+"0","  geom_point(mapping = aes(fill = drv), size = 4, "
+"0","             shape = 23, col = ""white"", stroke = 2) "

@@ -1,0 +1,5 @@
+"0","#representando 3 variables:"
+"0",""
+"0","#haciendo un grafico , representando una tercera variable tipo clase por color en el scater plot:"
+"0","ggplot(data=mpg)+"
+"0","  geom_point(mapping=aes(x=displ,y=hwy, color=class))"

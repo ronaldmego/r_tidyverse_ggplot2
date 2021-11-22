@@ -1,0 +1,8 @@
+"0","#ejemplo final combinando parametros"
+"0","ggplot(data=diamonds)+"
+"0","  geom_bar(mapping = aes(x=clarity,fill=clarity,y=..count..))+"
+"0","  coord_polar()+"
+"0","  facet_wrap(~cut)+"
+"0","  labs(x=NULL,y=NULL,title=""Ejemplo final de ggplot con JB"","
+"0","       caption = ""hola"","
+"0","       subtitle = ""probando"")"

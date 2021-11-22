@@ -1,0 +1,8 @@
+"0","#plantilla de formas:"
+"0","d=data.frame(p=c(0:25))"
+"0","ggplot() +"
+"0","  scale_y_continuous(name="""") +"
+"0","  scale_x_continuous(name="""") +"
+"0","  scale_shape_identity() +"
+"0","  geom_point(data=d, mapping=aes(x=p%%16, y=p%/%16, shape=p), size=5, fill=""yellow"") +"
+"0","  geom_text(data=d, mapping=aes(x=p%%16, y=p%/%16+0.25, label=p), size=3)"

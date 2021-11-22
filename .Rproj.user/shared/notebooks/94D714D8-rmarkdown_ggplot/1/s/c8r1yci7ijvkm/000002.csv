@@ -1,0 +1,3 @@
+"0","##position=""fill"", permite comprar porcentajes"
+"0","ggplot(data=diamonds,mapping = aes(x=cut,fill=clarity))+"
+"0","  geom_bar(position=""fill"")"

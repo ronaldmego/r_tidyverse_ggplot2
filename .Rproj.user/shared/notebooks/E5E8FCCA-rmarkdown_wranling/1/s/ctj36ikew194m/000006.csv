@@ -1,0 +1,7 @@
+"0","t <- tibble("
+"0","  x=1:10,"
+"0","  y-pi,"
+"0","  z=y*x^2"
+"0",")"
+"2","Error in eval_tidy(xs[[j]], mask) : object 'y' not found
+"

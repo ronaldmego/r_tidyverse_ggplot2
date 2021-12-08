@@ -1,0 +1,7 @@
+"0","x <- c(""abc"",NA)"
+"0","str_c(""hola"",str_replace_na(x),""adios"", sep="" "")"
+"1","[1]"
+"1"," ""hola abc adios"""
+"1"," ""hola NA adios"" "
+"1","
+"

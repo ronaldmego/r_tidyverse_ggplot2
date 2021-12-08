@@ -1,0 +1,6 @@
+"0","tibble(x = c(""a,b,c"", ""d,e"",""f,g,h"")) %>%
+  separate(x, c(""x"", ""y"", ""z""))
+"
+"2","Warning:"
+"2"," Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].
+"

@@ -1,0 +1,4 @@
+"0","x <- c(single_quote,double_quote,backslash)
+"
+"2","Error: object 'single_quote' not found
+"

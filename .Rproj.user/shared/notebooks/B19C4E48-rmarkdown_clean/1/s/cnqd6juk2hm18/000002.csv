@@ -1,0 +1,6 @@
+"0","tidyr::who %>%"
+"0","  pivot_longer(cols = c(new_sp_m014:newrel_f65),names_to = ""key"",values_to = ""cases"",values_drop_na=TRUE) %>%"
+"0","    mutate(key = stringr::str_replace(key,""newrel"",""new_rel"")) %>%"
+"0","    separate(key,c(""new"",""type"",""sexage""),sep=""_"") %>%"
+"0","    select(-new,-iso2,-iso3) %>%"
+"0","    separate(sexage,c(""sex"",""age""),sep=1)"

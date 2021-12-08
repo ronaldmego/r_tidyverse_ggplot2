@@ -1,0 +1,2 @@
+"0","(table4b %>%"
+"0","gather(`1999`,`2000`,key = ""year"",value = ""population"") -> tidy4b)"

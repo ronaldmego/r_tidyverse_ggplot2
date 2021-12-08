@@ -1,0 +1,8 @@
+"0","good_diamonds <- diamonds %>%
+  filter(beetween(y,2.4,29.5))
+"
+"2","Error: Problem with `filter()` input `..1`.
+[34mi[39m Input `..1` is `beetween(y, 2.4, 29.5)`.
+[31mx[39m could not find function ""beetween""
+[90mRun `rlang::last_error()` to see where the error occurred.[39m
+"

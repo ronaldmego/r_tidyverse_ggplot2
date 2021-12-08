@@ -1,0 +1,8 @@
+"0","#library(lubridate) #parquete para fechas"
+"0","tibble("
+"0","  a=lubridate::now()+runif(1e3)*24*60*60,"
+"0","  b=1:1e3,"
+"0","  c=lubridate::today()+runif(1e3)*30,"
+"0","  d=runif(1e3),"
+"0","  e=sample(letters,1e3,replace=T)"
+"0",")"

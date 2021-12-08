@@ -1,0 +1,27 @@
+"0","install.packages(""feather"")
+"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installing package into ‘C:/Users/Mego/OneDrive/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/feather_0.3.5.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 889729 bytes (868 KB)
+"
+"2","downloaded 868 KB
+
+"
+"1","package ‘feather’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\Mego\AppData\Local\Temp\RtmpikyL3K\downloaded_packages"
+"1",""
+"1","
+"

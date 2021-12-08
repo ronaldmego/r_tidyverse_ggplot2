@@ -1,0 +1,6 @@
+"0","diamonds %>%"
+"0","  ggplot(mapping = aes(x=price,y=carat))+"
+"0","  geom_hex()+"
+"0","  geom_smooth()"
+"2","`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = ""cs"")'
+"

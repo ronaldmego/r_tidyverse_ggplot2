@@ -1,0 +1,6 @@
+"0","parse_date(""5 janvier 2012"", format=""%d %B %Y"",locale=locale(""fr""))
+"
+"1","[1]"
+"1"," ""2012-01-05"""
+"1","
+"

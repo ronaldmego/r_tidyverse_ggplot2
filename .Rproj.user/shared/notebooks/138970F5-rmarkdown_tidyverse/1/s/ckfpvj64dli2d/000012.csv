@@ -1,0 +1,6 @@
+"0","transmute( flights , air_time,"
+"0","           arr_time,"
+"0","           ath=arr_time%/%100, atm=arr_time%%100,at=ath*60+atm, "
+"0","           dep_time,"
+"0","           dth=dep_time%/%100,dtm=dep_time%%100,dt=dth*60+dtm,"
+"0","           at-dt)"

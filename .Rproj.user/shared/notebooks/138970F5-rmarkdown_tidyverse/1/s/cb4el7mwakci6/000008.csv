@@ -1,0 +1,16 @@
+"0","library(ggstance)"
+"2","
+Attaching package: ‘ggstance’
+
+"
+"2","The following objects are masked from ‘package:ggplot2’:
+
+    geom_errorbarh, GeomErrorbarh
+
+"
+"0","ggplot(data = mpg,mapping = aes(x = hwy,"
+"0","                                y = reorder(class, hwy, FUN = median),"
+"0","                                fill = factor(class)"
+"0","                                )"
+"0","       ) + "
+"0","  geom_boxploth()"

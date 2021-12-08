@@ -1,0 +1,372 @@
+---
+title: "R Data Clean"
+author: "Ronald Mego"
+date: "11/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+write_rds(table1,"../data/population.rds")
+```
+
+```{r}
+table <- read_rds("../data/population.rds")
+```
+
+```{r}
+table %>%
+  mutate(rate = cases/population*10000)
+```
+
+```{r}
+table %>%
+  count(year, wt = cases)
+```
+
+```{r}
+table %>%
+  ggplot(aes(year,cases)) + 
+  geom_line(aes(group=country),color="grey")+
+  geom_point(aes(color=country))
+```
+#necesitamos pasar las columnas como filas
+```{r}
+table4a #esta tabla tiene el año como columnas pero lo necesitamos como fila
+```
+#usamos gather para ese fin
+```{r}
+(table4a %>%
+  gather(`1999`,`2000`,key="year",value="cases") -> tidy4a)
+```
+
+#otra opcion
+#pivot longer
+```{r}
+table4a %>%
+  pivot_longer(c(`1999`,`2000`),names_to="year",values_to = "cases")
+```
+
+
+```{r}
+table4b #esta tabla tiene el año como columnas pero lo necesitamos como fila
+```
+
+```{r}
+(table4b %>%
+gather(`1999`,`2000`,key = "year",value = "population") -> tidy4b)
+```
+
+#otra opcion
+#pivot longer
+```{r}
+table4b %>%
+  pivot_longer(c(`1999`,`2000`),names_to="year",values_to = "population")
+```
+
+```{r}
+left_join(tidy4a,tidy4b)
+```
+
+#cuando una observacion esta en la fila pero la necesitamos como columna
+#para este caso usamos spread
+```{r}
+table2 #esta tabla tiene la columna type que la necesitamos como columnas
+```
+```{r}
+table2 %>%
+  spread(key=type,value = count)
+```
+
+#otra forma
+
+#pivot wider
+
+```{r}
+table2 %>%
+  pivot_wider(names_from = type , values_from = count)
+```
+
+#para separar un string con separador especial
+```{r}
+table3 #esta tabla tiene dos numeros mezclados en una sola columna rate, y se requiere separarla
+```
+
+```{r}
+table3 %>%
+  separate(rate,into=c("cases","population"),sep="/")
+```
+
+#vemos que separate logra separar los datos, pero no identifica el tipo de dato, esto se puede resolver asi:
+```{r}
+table3 %>%
+  separate(rate,into=c("cases","population"),sep="/",convert = TRUE)
+```
+
+#vamos a intentar separar los 4 digitos de año en dos partes por la posicion
+
+```{r}
+table3 %>%
+  separate(rate,into=c("cases","population"),sep="/",convert = TRUE) %>%
+  separate(year,sep = 2,into = c("century","year"))
+```
+
+#y ademas de separar convertir
+```{r}
+table3 %>%
+  separate(rate,into=c("cases","population"),sep="/",convert = TRUE) %>%
+  separate(year,sep = 2,into = c("century","year"),convert = TRUE)
+```
+
+#lo opuesto a separate, se usa unite
+```{r}
+table5 #esta tabla tiene separado el century del año, lo podemos unir para recrear el año de 4 dígitos
+```
+
+```{r}
+table5 %>%
+  unite(new_year , century , year, sep = "")
+```
+
+#pivot_wider
+```{r}
+(
+people <- tribble(
+  ~name,         ~key,   ~value,
+  #-------------|-------|-------
+  "Juan Gabriel", "age",     30,
+  "Juan Gabriel", "weight",  71,
+  "Juan Gabriel", "age",     18,
+  "Ricardo",      "age",     55,
+  "Ricardo",      "age",     75,
+)
+)
+```
+
+
+
+
+```{r}
+tibble(x = c("a,b,c", "d,e,f,g","h,i,j")) %>%
+  separate(x, c("x", "y", "z"), extra = "drop")
+```
+```{r}
+tibble(x = c("a,b,c", "d,e","f,g,h")) %>%
+  separate(x, c("x", "y", "z"), fill = "right")
+```
+
+#NAs
+```{r}
+(
+roi <- tibble(
+  year = c(rep(2016,4) , rep(2017,4), 2018),
+  quarter = c(rep(c(1,2,3,4),2),1),
+  return= rnorm(9,mean = 0.5, sd = 1)
+)
+)
+```
+
+#creo un NA
+```{r}
+roi$return[7]=NA
+roi
+```
+
+```{r}
+roi %>%
+  spread(year,return)
+```
+
+Con Gather se puede requerir omitir las filas con NA
+```{r}
+roi %>%
+  spread(year,return) %>%
+  gather(year,return,`2016`:`2018`, na.rm=TRUE)
+```
+
+```{r}
+roi %>%
+  complete(year,quarter) #rellena la columna year infiriendo que faltan datos en quarter
+```
+#cuando queremos completar NAs con el valor de la fila previa no nula
+```{r}
+(
+treatments <-  tribble(
+  ~name,             ~treatment,   ~response,
+  "Juan Gabriel",     1,           8,
+  NA,                 2,           10,
+  NA,                 3,           4,
+  "Ricardo",          1,           7,
+  NA,                 2,           9
+)
+)
+```
+#en esto se puede usar la funcion fill
+```{r}
+treatments %>%
+  fill(name)
+```
+
+```{r}
+tidyr::who
+```
+#pasando a formato tidy
+
+```{r}
+tidyr::who  %>%
+  gather(new_sp_m014:newrel_f65,key="key", value="cases",na.rm=TRUE)
+```
+#otra forma con pivot_longer
+```{r}
+(
+tidyr::who %>%
+  pivot_longer(cols = c(new_sp_m014:newrel_f65),names_to = "key",values_to = "cases",values_drop_na=TRUE) ->who1
+)
+```
+```{r}
+who1 %>% 
+  count(key)
+```
+#toca cambiar la columna "key" en sus componentes
+
+```{r}
+(
+who2 <- who1 %>%
+  mutate(key = stringr::str_replace(key,"newrel","new_rel")) 
+)
+```
+```{r}
+who2 %>% count(key)
+```
+
+
+```{r}
+(
+who3 <- who2 %>%
+  separate(key,c("new","type","sexage"),sep="_")
+)
+```
+
+```{r}
+(
+who4 <- who3 %>%
+  select(-new,-iso2,-iso3)
+)
+```
+
+```{r}
+(
+who5 <- who4 %>%
+  separate(sexage,c("sex","age"),sep=1)
+)
+```
+#todo junto
+```{r}
+tidyr::who %>%
+  pivot_longer(cols = c(new_sp_m014:newrel_f65),names_to = "key",values_to = "cases",values_drop_na=TRUE) %>%
+    mutate(key = stringr::str_replace(key,"newrel","new_rel")) %>%
+    separate(key,c("new","type","sexage"),sep="_") %>%
+    select(-new,-iso2,-iso3) %>%
+    separate(sexage,c("sex","age"),sep=1)
+```
+
+#como verificar que un campo es llave
+#es decir que no tiene duplicados
+```{r}
+nycflights13::planes %>%
+  count(tailnum) %>%
+  filter(n>1)
+```
+
+#otra forma de buscar duplicados
+```{r}
+nycflights13::planes %>%
+  count(tailnum) %>%
+  arrange(desc(n))
+```
+
+#y otra forma de buscar duplicados todavia mas facil (top 10)
+```{r}
+nycflights13::planes %>%
+  count(tailnum, sort = TRUE) %>%
+  head(10)
+```
+
+```{r}
+x <- tribble(
+          ~key, ~value ,
+          1   , "x1" ,
+          2   , "x2" ,
+          3   , "x3" 
+)
+```
+
+```{r}
+y <- tribble(
+         ~key, ~value ,
+         1   , "y1" ,
+         2   , "y2" ,
+         4   , "y4"
+         
+)
+```
+
+```{r}
+x %>%
+  left_join(y, by="key")
+```
+```{r}
+x %>%
+  right_join(y,by="key")
+```
+
+```{r}
+x %>%
+  full_join(y, by="key")
+```
+
+
+```{r}
+x %>%
+  inner_join(y, by = "key")
+```
+
+
+#uso del semi_join y el anti_join para mantener o eliminar filas que coincidan con otra tabla
+
+#ejemplo, queremos solo los datos de los top10 destinos de vuelos
+```{r}
+(
+nycflights13::flights %>%
+  count(dest, sort = TRUE) %>%
+  head(10) -> top_dest
+)
+```
+
+#ahora requiero mirar los datos de la tabla solo de estos top 10
+#la forma clasica seria usar un filtro
+```{r}
+nycflights13::flights %>%
+  filter(dest %in% top_dest$dest)
+```
+#pero seria mas facil usar el semi_join
+```{r}
+nycflights13::flights %>%
+  semi_join(top_dest)
+```
+
+#ahora si requiero ver todos los vuelos, excepto los top10 seria el anti_join
+```{r}
+nycflights13::flights %>%
+  anti_join(top_dest) %>%
+  count(dest, sort = TRUE)
+```
+
+

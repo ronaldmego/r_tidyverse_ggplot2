@@ -1,0 +1,6 @@
+"0","nycflights13::flights %>%
+  anti_join(top_dest) %>%
+  count(dest, sort = TRUE)
+"
+"1","Joining, by = ""dest""
+"

@@ -1,0 +1,5 @@
+"0","#install.packages(""lvplot"")"
+"0","#library(lvplot)"
+"0","ggplot(data = diamonds,"
+"0","       mapping = aes(x = cut, y = price)"
+"0",") + geom_lv(aes(fill = ..LV..) )"

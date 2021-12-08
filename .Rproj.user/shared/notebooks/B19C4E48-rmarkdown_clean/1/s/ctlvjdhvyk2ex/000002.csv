@@ -1,0 +1,5 @@
+"0","nycflights13::flights %>%
+  semi_join(top_dest)
+"
+"1","Joining, by = ""dest""
+"

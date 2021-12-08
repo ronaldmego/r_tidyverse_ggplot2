@@ -1,0 +1,5 @@
+"0","nycflights13::flights %>%"
+"0","  count(month, dest) %>%"
+"0","  filter(n>400) %>%"
+"0","  ggplot(mapping = aes(x = dest, y = month)) + "
+"0","  geom_tile(mapping = aes(fill = n))"

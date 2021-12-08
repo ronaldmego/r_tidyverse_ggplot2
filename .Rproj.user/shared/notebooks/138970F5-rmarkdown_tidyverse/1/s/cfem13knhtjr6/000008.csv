@@ -1,0 +1,8 @@
+"0","ggplot(data=delay_numtail, mapping = aes(x=delay))+
+  geom_freqpoly(binwidht=5)
+"
+"2","Warning:"
+"2"," Ignoring unknown parameters: binwidht
+"
+"2","`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+"

@@ -1,0 +1,21 @@
+"0","parse_integer(c(""1"",""2"",""hola"",""5"",""234"",""3.141592""))
+"
+"2","Warning:"
+"2"," 2 parsing failures.
+row col               expected   actual
+  3  -- no trailing characters hola    
+  6  -- no trailing characters 3.141592
+
+"
+"1","[1]"
+"1","   1"
+"1","   2"
+"1","  NA"
+"1","   5"
+"1"," 234"
+"1","  NA"
+"1","
+"
+"1","attr(,""problems"")"
+"1","
+"

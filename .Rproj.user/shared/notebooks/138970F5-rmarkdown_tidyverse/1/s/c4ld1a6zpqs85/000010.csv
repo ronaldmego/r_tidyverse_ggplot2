@@ -1,0 +1,7 @@
+"0","batters %>% filter(bats>100) %>%
+  ggplot(mapping = aes(x=bats,y=bat.average))+
+  geom_point(alpha=0.2)+
+  geom_smooth(se=F)
+"
+"2","`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = ""cs"")'
+"

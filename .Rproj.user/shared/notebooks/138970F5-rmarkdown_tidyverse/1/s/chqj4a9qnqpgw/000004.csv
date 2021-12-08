@@ -1,0 +1,4 @@
+"0","by_month_group <- group_by(flights,year,month)"
+"0","summarise(by_month_group,delay=mean(dep_delay,na.rm=T))"
+"1","`summarise()` has grouped output by 'year'. You can override using the `.groups` argument.
+"

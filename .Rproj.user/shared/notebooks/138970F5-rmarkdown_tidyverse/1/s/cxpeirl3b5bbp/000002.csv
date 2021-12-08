@@ -1,0 +1,6 @@
+"0","diamonds %>%"
+"0","  ggplot(aes(price, colour = cut)) + "
+"0","  geom_freqpoly() + "
+"0","  facet_wrap(~cut_number(carat, 5), nrow = 2)"
+"2","`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+"

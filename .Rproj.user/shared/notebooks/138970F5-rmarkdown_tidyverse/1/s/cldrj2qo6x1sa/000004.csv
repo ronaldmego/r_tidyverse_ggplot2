@@ -1,0 +1,7 @@
+"0","ggplot(data = diamonds,"
+"0","       mapping = aes(x = cut, y = price)"
+"0",") + geom_lv(aes(alpha = ..LV..),fill=""blue"" )+"
+"0","  scale_alpha_discrete(range = c(0.7, 0))"
+"2","Warning:"
+"2"," Using alpha for a discrete variable is not advised.
+"

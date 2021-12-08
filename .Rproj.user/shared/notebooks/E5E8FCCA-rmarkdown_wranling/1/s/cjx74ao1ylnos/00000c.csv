@@ -1,0 +1,21 @@
+"0","months <- c(""Jan"",""Feb"",""Mar"",""Apr"",""May"",""Jun"",""Jul"",""Aug"",""Sep"",""Oct"",""Nov"",""Dec"")"
+"0","parse_factor(c(""May"",""Apr"",""Jul"",""Aug"",""Sec"",""Nob""),levels = months)"
+"2","Warning:"
+"2"," 2 parsing failures.
+row col           expected actual
+  5  -- value in level set    Sec
+  6  -- value in level set    Nob
+
+"
+"1","[1]"
+"1"," May "
+"1"," Apr "
+"1"," Jul "
+"1"," Aug "
+"1"," <NA>"
+"1"," <NA>"
+"1","
+"
+"1","attr(,""problems"")"
+"1","
+"

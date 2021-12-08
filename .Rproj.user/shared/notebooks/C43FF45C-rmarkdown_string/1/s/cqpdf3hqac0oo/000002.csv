@@ -1,0 +1,8 @@
+"0","str_c(""prefix-"",c(""a"",""b"",""c""),""-sufix"")
+"
+"1","[1]"
+"1"," ""prefix-a-sufix"""
+"1"," ""prefix-b-sufix"""
+"1"," ""prefix-c-sufix"""
+"1","
+"

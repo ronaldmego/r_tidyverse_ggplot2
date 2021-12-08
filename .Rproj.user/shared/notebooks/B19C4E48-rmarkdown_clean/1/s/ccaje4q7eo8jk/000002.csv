@@ -1,0 +1,8 @@
+"0","x <- tribble(
+          ~key, ~value
+          1   , ""x1"" ,
+"
+"2","Error: unexpected numeric constant in:
+""          ~key, ~value
+          1""
+"

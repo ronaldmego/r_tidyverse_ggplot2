@@ -1,0 +1,1 @@
+"0","arrange(transmute(flights,dep_delay,ranking=min_rank(desc(dep_delay))),ranking)[1:10,]"

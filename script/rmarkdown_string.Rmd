@@ -273,6 +273,13 @@ str_view(x,"C[LX]+?")
 fruits <- c("banana","coco","papaya","manzana","pera","pepino")
 ```
 
+```{r}
+str_view(fruits,"[ao]")
+```
+
+```{r}
+str_view(fruits,"a|o")
+```
 
 buscar nombres de frutas con patrones de repeticion
 (..) significa dos cosas cualequiera
@@ -298,7 +305,7 @@ busca en el vector fruits si contiene una expresion
 str_detect(fruits,"a")
 ```
 ```{r}
-str_view(fruits,"a")
+str_view(fruits,"^[^bc]+$")
 ```
 
 
@@ -317,8 +324,61 @@ mean(str_detect(words,"^[aeiou]"))
 ```{r}
 mean(str_detect(words,"[aeiou]$"))
 ```
+
 #cuantas palabras no tienen ninguna vocal
 ```{r}
 sum(!str_detect(words,"[aeiou]"))
+```
+
+#subset de palabras que no tengan vocales
+```{r}
+words[!str_detect(words,"[aeiou]")]
+```
+subset de palabras que no tengan vocales (otra opcion)
+```{r}
+str_subset(words,"^[^aeiou]+$")
+```
+```{r}
+str_count(words,"^[^aeiou]+$") %>% sum()
+```
+```{r}
+str_subset(words,"^[^aeiou]+$")
+```
+
+subset de palabras que acaban en vocal
+```{r}
+str_subset(words,"[aeiou]$")
+```
+Vamos a convertir words en un tibble con este truco
+```{r}
+#creamos un tibble de dos columnas: word e i
+df <- tibble (
+  word = words, #crea la columna "word" con cada elemento de words
+  i = seq_along(word) #asigna un numero correlativo a cada elemmento de words
+)
+```
+
+#ahora vamos a filtrar las filas donde esten las palabras que acaben en "x"
+```{r}
+df %>% filter(str_detect(df$word,"x$"))
+```
+#tambien esta la funcion str_count para mirar cuantas veces aparece la expresion regular en cada elemento del vector
+```{r}
+fruits
+```
+
+```{r}
+str_count(fruits,"a")
+```
+
+#cual es el promedio de vocales en el idioma ingles?
+
+```{r}
+str_count(words,"[aeiou]") %>% mean()
+```
+#al df de words tambien le podemos añadir columnas nuevas que indiquen la cantidad de vocales y consonantes por palabra
+```{r}
+df %>% mutate(q_vocal=str_count(word,"[aeiou]"), #cantidad de vocales
+              q_consonant=str_count(word,"[^aeiou]")) #cantidad de consonantes
 ```
 

@@ -1,0 +1,5 @@
+"0","#creamos un tibble de dos columnas: word e i"
+"0","df <- tibble ("
+"0","  word = words, #crea la columna ""word"" con cada elemento de words"
+"0","  i = seq_along(word) #asigna un numero correlativo a cada elemmento de words"
+"0",")"

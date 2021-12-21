@@ -494,6 +494,7 @@ flights %>%
 ggplot(data=delay_numtail, mapping = aes(x=delay))+
   geom_freqpoly(binwidth=5)
 ```
+
 ```{r}
 ggplot(data=delay_numtail,mapping = aes(x=delay))+
   geom_histogram(binwidth=5)
@@ -503,6 +504,7 @@ ggplot(data=delay_numtail,mapping = aes(x=delay))+
 ggplot(data=delay_numtail,mapping = aes(x=count,y=delay))+
   geom_point(alpha=0.2)
 ```
+
 ```{r}
 delay_numtail %>%
   filter(count>30) %>%
@@ -902,6 +904,7 @@ ggplot(data=mpg,mapping=aes(x=class,y=hwy))+
 ggplot(data=mpg,mapping = aes(x=reorder(class,hwy,FUN=median),y=hwy))+
   geom_boxplot()
 ```
+
 ```{r}
 ggplot(data=mpg,mapping = aes(x=reorder(class,hwy,FUN=median),y=hwy))+
   geom_boxplot()+

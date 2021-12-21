@@ -45,10 +45,10 @@ dput(mpg)
 
 ```{r}
 #OTRA FORMA DE DIBUJAR con libreria esquisse
-library(esquisse) #par ejecutar esquisser()
+#library(esquisse) #par ejecutar esquisser()
 
 #demo equisser
-esquisser()
+#esquisser()
 ```
 
 ```{r}

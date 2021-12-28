@@ -1,0 +1,5 @@
+"0","#dibujando una linea suavizada para ver correlacion"
+"0","ggplot(data=mpg)+"
+"0","  geom_smooth(mapping = aes(x=displ,y=hwy))"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

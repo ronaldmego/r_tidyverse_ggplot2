@@ -1,0 +1,1 @@
+"0","filter (flights , !(arr_delay>60 | dep_delay>60)) #filtra los vuelos cuyo delay de llegada sea maximo de una hora.usando la ley de morgan"

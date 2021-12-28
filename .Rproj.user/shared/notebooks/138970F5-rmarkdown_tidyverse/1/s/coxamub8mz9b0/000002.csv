@@ -1,0 +1,2 @@
+"0","ggplot(data = diamonds)+"
+"0","  geom_point(mapping = aes(x=carat,y=price),alpha=0.01)"

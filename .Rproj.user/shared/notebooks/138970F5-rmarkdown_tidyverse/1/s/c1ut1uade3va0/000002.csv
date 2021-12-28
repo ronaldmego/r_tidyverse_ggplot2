@@ -1,0 +1,4 @@
+"0","diamonds %>%"
+"0","  filter(carat<3) %>%"
+"0","  ggplot(mapping = aes(x=carat,color=cut))+"
+"0","  geom_freqpoly(binwidth=0.1)"

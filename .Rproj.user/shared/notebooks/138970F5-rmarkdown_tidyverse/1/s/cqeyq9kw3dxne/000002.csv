@@ -1,0 +1,2 @@
+"0","#Encuentra todos los vuelos operados por United American (UA) o por American Airlines (AA)"
+"0","filter(flights , carrier %in% c(""UA"",""AA"")) "

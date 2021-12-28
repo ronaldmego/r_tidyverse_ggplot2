@@ -1,0 +1,2 @@
+"0","#mostrar solo retraso en tiempo de salida y llegada entre las filas 1024 y la 1068"
+"0","select ( sorted_date [1024:1068,] , dep_delay, arr_delay)"

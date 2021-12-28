@@ -1,0 +1,2 @@
+"0","ggplot(data = diamonds, mapping=aes(x=cut,color=clarity))+"
+"0","  geom_bar(fill=NA,position = ""identity"")"

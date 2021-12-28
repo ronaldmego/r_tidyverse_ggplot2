@@ -1,0 +1,4 @@
+"0","by_age <- gss_cat %>%"
+"0","  filter(!is.na(age)) %>%"
+"0","  group_by(age,marital) %>%"
+"0","  count()"

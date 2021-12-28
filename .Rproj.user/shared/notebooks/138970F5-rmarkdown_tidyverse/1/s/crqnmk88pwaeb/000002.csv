@@ -1,0 +1,4 @@
+"0","diamonds %>%"
+"0","  count(color,cut) %>%"
+"0","  ggplot(mapping=aes(x=cut,y=color))+"
+"0","  geom_tile(mapping=aes(fill=n))"

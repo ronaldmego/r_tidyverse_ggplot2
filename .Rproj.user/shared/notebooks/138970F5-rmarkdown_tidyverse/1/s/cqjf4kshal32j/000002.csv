@@ -1,0 +1,6 @@
+"0","ggplot(data=delay,mapping = aes(x=dist,y = delay))+"
+"0","  geom_point(aes(size=count),alpha=0.2)+"
+"0","  geom_smooth(se=F)+"
+"0","  geom_text(aes(label=dest,alpha=0.3))"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

@@ -1,0 +1,1 @@
+"0","mutate(summarise(group_by(flights,carrier),median=median(dep_delay,na.rm=T)),min_rank(median))"

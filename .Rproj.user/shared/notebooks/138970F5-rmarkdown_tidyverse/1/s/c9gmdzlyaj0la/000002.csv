@@ -1,0 +1,2 @@
+"0","ggplot(data=good_diamonds,mapping=aes(x=x,y=y))+"
+"0","  geom_point(na.rm=T)"

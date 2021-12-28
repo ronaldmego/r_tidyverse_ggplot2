@@ -1,0 +1,3 @@
+"0","ggplot(by_age,aes(age,n,color=fct_reorder2(marital,age,n)))+"
+"0","  geom_line(na.rm=TRUE)+"
+"0","  labs(color=""Marital"")"

@@ -1,0 +1,5 @@
+"0","#formas de comparar diagramas de barras"
+"0",""
+"0","##position=""identity"""
+"0","ggplot(data = diamonds, mapping=aes(x=cut,fill=clarity))+"
+"0","  geom_bar(alpha=0.2,position = ""identity"")"

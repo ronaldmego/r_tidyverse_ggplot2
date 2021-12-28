@@ -1,0 +1,2 @@
+"0","summarise(group_by(flights,carrier),"
+"0","          delay=mean(dep_delay,na.rm=T))"

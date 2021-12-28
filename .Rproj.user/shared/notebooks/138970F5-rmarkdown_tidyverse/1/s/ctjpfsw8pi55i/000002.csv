@@ -1,0 +1,7 @@
+"0","ggplot(data = mpg,"
+"0","       mapping = "
+"0","         aes(x=reorder(class,hwy,FUN=median),"
+"0","             y=hwy),"
+"0","              fill=factor(class))+"
+"0","  geom_boxplot()+"
+"0","  coord_flip()"

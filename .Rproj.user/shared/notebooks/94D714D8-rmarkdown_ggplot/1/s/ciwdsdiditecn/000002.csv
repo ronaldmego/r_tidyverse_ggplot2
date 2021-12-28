@@ -1,0 +1,5 @@
+"0","#colores y formas de los graficos"
+"0",""
+"0","#cambiando de color los bordes"
+"0","ggplot(data=diamonds) +"
+"0","  geom_bar(mapping = aes(x=cut,colour=cut))"

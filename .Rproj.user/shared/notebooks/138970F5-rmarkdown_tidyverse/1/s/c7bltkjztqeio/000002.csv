@@ -1,0 +1,3 @@
+"0","diamonds_pred <- diamonds %>%"
+"0","  add_residuals(mod) %>%"
+"0","  mutate(res=exp(resid))"

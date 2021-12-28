@@ -1,0 +1,6 @@
+"0","tibble(sentence = sentences) %>%"
+"0","  tidyr::extract("
+"0","    sentence,c(""article"",""noun""),"
+"0","    ""(a|the) ([^ ]+)"","
+"0","    remove=FALSE"
+"0","  )"

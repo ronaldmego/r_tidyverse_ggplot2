@@ -1,0 +1,2 @@
+"0","ggplot(data = diamonds)+"
+"0","  geom_hex(mapping=aes(x=carat,y=price))"

@@ -1,0 +1,6 @@
+"0","#tambien se pueden hacer asi:"
+"0","ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+"
+"0","  geom_point()+"
+"0","  geom_smooth()"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

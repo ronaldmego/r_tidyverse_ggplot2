@@ -1,0 +1,7 @@
+"0","flights_dt %>%"
+"0","  count(week=floor_date(dep_time,""week"")) %>%"
+"0","  ggplot(aes(week,n))+"
+"0","  geom_line()"
+"2","Warning:"
+"2"," Removed 1 row(s) containing missing values (geom_path).
+"

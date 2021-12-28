@@ -158,7 +158,6 @@ writeLines(backslash)
 writeLines("a\\c")
 ```
 
-
 ```{r}
 str_view("a\\c","\\\\")
 ```
@@ -204,7 +203,7 @@ str_view(c("ceviche","cebiche"),"ce(v|b)iche")
 ```
 
 #? -> 0 o 1
-#+ -> 1 o + veces
+#+ -> 1 o + veces (que exista cualquier cosa menos el vacio)
 #* -> 0 o más veces
 ```{r}
 x <- "El año 1888 es el más largo en números romanos: MDCCCLXXXVIII"
@@ -302,6 +301,7 @@ otras alternativas a las regexp
 
 busca en el vector fruits si contiene una expresion
 ```{r}
+fruits
 str_detect(fruits,"a")
 ```
 ```{r}
@@ -364,6 +364,7 @@ df %>% filter(str_detect(df$word,"x$"))
 ```
 #tambien esta la funcion str_count para mirar cuantas veces aparece la expresion regular en cada elemento del vector
 ```{r}
+fruits <- c("banana","coco","papaya","manzana","pera","pepino")
 fruits
 ```
 
@@ -381,4 +382,501 @@ str_count(words,"[aeiou]") %>% mean()
 df %>% mutate(q_vocal=str_count(word,"[aeiou]"), #cantidad de vocales
               q_consonant=str_count(word,"[^aeiou]")) #cantidad de consonantes
 ```
+#no hay overlaping
+```{r}
+str_count("ababababababa","aba")
+#str_view_all("ababababababa","aba")
+```
+#agrupaciones y reemplazos de string
+
+#dataset de frases
+```{r}
+head(sentences)
+```
+#cantidad de frases
+```{r}
+length(sentences)
+```
+#buscaremos si las frases contienen alguno de los colores
+```{r}
+colors <- c("red","orange","yellow","green","blue","purple")
+color_match <- str_c(colors, collapse = "|")
+color_match
+```
+#basta una coincidencia
+```{r}
+has_color <- str_subset(sentences,color_match)
+has_color
+```
+```{r}
+matches <- str_extract(has_color,color_match)
+matches
+```
+
+
+#ahora veremos los que tienen mas de una coincidencia
+```{r}
+more_than_one <-  sentences[str_count(sentences,color_match)>1]
+more_than_one
+```
+
+```{r}
+str_view_all(more_than_one,color_match)
+```
+para extraer tooodas las coincidencias, y no solo la primera, se agrega "_all" a la funcion
+devuelve una lista de listas
+```{r}
+str_extract_all(more_than_one,color_match)
+```
+Si lo quieres en formato matricial se hace asi:
+```{r}
+str_extract_all(more_than_one,color_match,simplify = TRUE)
+```
+busquemos un noun
+
+que empiece con "a" o con "the", luego haya un espacio, y luego que siga cualquier cosa que no sea un espacio.
+```{r}
+noun <- "(a|the) ([^ ])+"
+```
+
+devuelve un vector
+```{r}
+sentences %>% 
+  str_subset(noun) %>%
+  str_extract(noun) %>%
+  head(20)
+```
+devuelve una matriz
+```{r}
+sentences %>% 
+  str_subset(noun) %>%
+  str_match(noun) %>%
+  head(20)
+```
+#extract: Given a regular expression with capturing groups, extract() turns each group into a new column. If the groups don't match, or the input is NA, the output will be NA.
+```{r}
+tibble(sentence = sentences) %>%
+  tidyr::extract(
+    sentence,c("article","noun"),
+    "(a|the) ([^ ]+)",
+    remove=FALSE
+  )
+```
+VIDEO: DIVISIONES Y BUSQUEDAS DE STRINGS
+
+reemplazar un texto con otro
+ejemplo: reemplazar las vocales con guiones bajos
+
+#reemplaza las primeras coincidencias
+```{r}
+fruits <- c("banana","coco","papaya","manzana","pera","pepino")
+str_replace(fruits,"[aeiou]","_")
+```
+reemplaza todas las coincidencias
+```{r}
+str_replace_all(fruits,"[aeiou]","_")
+```
+reemplazar segun una regla
+```{r}
+str_replace_all(c("1 coche","2 teléfonos","3 amigos"),
+                c("1"="un","2"="dos","3"="tres"))
+```
+ejemplo: se requiere encontrar las tres primeras palabras y intercambiar la segunda palabra por la tercera palabra
+una palabra es algo que no sea algo en blanco, entonces: [^ ]+
+```{r}
+sentences %>%
+  str_replace("([^ ]+) ([^ ]+) ([^ ]+)","\\1 \\3 \\2") %>%
+  head(20)
+```
+genera una lista de listas (array) del texto
+```{r}
+sentences %>%
+  head(10) %>%
+  str_split(" ")
+```
+
+genera una lista de listas (array) del texto y quedarse con el primer vector
+```{r}
+sentences %>%
+  head(10) %>%
+  str_split(" ") %>%
+  .[[1]]
+```
+
+
+otro ejemplo de obtener la lista y luego el vector
+```{r}
+"a,b,c,d,e,f" %>%
+  str_split(",") %>% #lo convierte a una lista
+  .[[1]] #lo convierte a vector
+```
+
+simplify=TRUE cambia la lista de listas (arrays) por una matriz
+```{r}
+sentences %>%
+  head(10) %>%
+  str_split(" ", simplify=TRUE)
+```
+ademas si quieres dividirlo solo en tres columnas, la ultima consolida todo lo demas
+```{r}
+sentences %>%
+  head(10) %>%
+  str_split(" ",n=3, simplify=TRUE)
+```
+ejemplo de uso
+```{r}
+fields <- c("Name: Ronald Mego","Country: Perú","Age: 30")
+fields %>% str_split(": ",n=2,simplify=TRUE)
+```
+otra forma de romper por palabra o por letra o por saltos de linea:
+#c("character","line_break","sentence","word")
+
+#divide por palabra
+```{r}
+sent <- "El Perro de San Roque no tiene rabo. Y esto es todo."
+str_view_all(sent,boundary("word"))
+```
+
+ejemplo, comparando contra dividir por espacio, tiene el problema que se lleva los puntos.
+```{r}
+str_split(sent," ")
+```
+entonces usamos str_split pero con la peticion de dividir por word
+```{r}
+str_split(sent,boundary("word"))[[1]]
+```
+encontrar donde aparecen todas las "a"
+```{r}
+str_locate_all(sent,"a")
+```
+encontrar donde aparece el patron de una vocal seguido de un espacio
+```{r}
+str_locate_all(sent,"[aeiou] ")
+```
+ahora usemos esas posiciones para mirar cuales aparecen
+```{r}
+str_sub(sent,8,9)
+```
+
+VIDEO: OTRAS EXPRESIONES REGULARES
+
+```{r}
+str_view(fruit,"nana")
+```
+```{r}
+str_view(fruit,regex("nana"))
+```
+#por defecto es estricto con minusculas y mayusculas
+```{r}
+apples <- c("manzana","Manzana","MANZANA")
+str_view(apples,"manzana")
+```
+#se puede omitir con ignore
+
+```{r}
+str_view(apples,regex("manzana",ignore_case = TRUE))
+```
+si buscamos en un texto que tiene saltos de linea, solo se ubicara la primera linea
+```{r}
+x <- "Linea 1\nLinea2\nLinea 2\nLinea 3 \nLinea 4"
+str_extract_all(x,"^Linea")[[1]]
+```
+Esto se resuelve con el parametro multiline=True
+```{r}
+str_extract_all(x,regex("^Linea",multiline=TRUE))[[1]]
+```
+ejemplo de como limpiar telefonos
+```{r}
+phone <- regex("
+               \\(?     #parentesis de apertura opcionales
+               (\\d{3}) #codigo de area
+               [)- ]   #cierre de parentesis, guion o espacio opcionales
+               (\\d{3}) #tres digitos de telefono
+               [ -]?    #espacio o guion opcional
+               (\\d{3}) #tres digitos finales
+               ",
+               comments = TRUE)
+
+```
+
+```{r}
+str_match("971-123456",phone)
+```
+para hacer benchmark de dos procesos
+```{r}
+#install.packages("microbenchmark")
+microbenchmark::microbenchmark(
+  regex=str_detect(sentences,"the"),  #primer metodo a comparar
+  fixed=str_detect(sentences,fixed("the")), #segundo metodo a comparar
+  times=30 #cantidad de veces que se les va a comparar
+)
+```
+#para saber el idioma de nuestro sistema operativo
+```{r}
+stringi::stri_locale_info()
+```
+#busca funciones poniendo como input parte dela misma
+```{r}
+apropos("replace")
+```
+#tambien busca las variables que estan cargadas
+```{r}
+apropos("fruit")
+```
+
+busca tambien archivos en nuestro directorio
+```{r}
+dir(pattern="\\.Rmd$")
+```
+#le das de input el modo linux y te devuelve la expresion regular equivalente
+```{r}
+glob2rx("*.Rmd")
+```
+
+Antes de usar stringr, muchas veces habréis usado las funciones paste() y paste0(). ¿Qué diferencia ambas funciones? A qué función de stringr son equivalentes? ¿Cómo gestionan internamente los NA?
+
+paste trae por default sepearador espacio. Y este se puede modificar. Mientras que paste0 no trae separador.
+
+Su equivalente en strinr es str_c()
+
+Describe la diferencia entre sep y collapse de la función str_c()
+Utiliza str_length() y str_sub() para extraer el carácter central de un string. ¿Qué harías si el string tiene un número par / impar de caracteres?
+¿Qué hace la función str_wrap() y cuando podrías usarla?
+¿Qué hace la función str_trim() y cual es su función opuesta?
+Escribe una función que convierta un vector ("a","b","c") en un string que diga "a, b y c". Piensa en las posiciones en el caso de vectores de longitud 0, 1, y 2 especialmente.
+1. Sep=  indica el separador entre elementos, considerando elemento a un str o vector.
+
+collapse= indica la separación entre str dentro de un vector que se unen.
+
+2.  Para toda palabra se divide a la mitad, si es par se toma el valor dado por la división. Si es impar se toma el valor siguiente del resultado de la división.
+
+ifelse(str_length(x)%%2==0,
+
+       a<-str_length(x)/2,
+
+       a<-str_length(x)/2+1)
+
+str_sub(x,a,a)
+
+3. str_trim() corta los espacios en blanco en los extremos de los str
+
+str_pad() sería su contrario. Añade espacios (en blanco por default) ya sea del lado izqueirdo, derecho o ambos.
+
+4.
+
+Explica porqué los siguientes strings no coinciden con "\": "\", "\\" y "\\\"
+¿Cómo localizarías la secuencia "'\?
+¿Qué patrón encontraría la expresión regular \..\..\..? ¿Cómo lo representarías en formato string?
+Cómo buscarías el carácter string "$^$"?
+1. Porque solo  \\ es equivalente a una diagonal invertida, al ser una sola o 3 da error al no reconocer el carácter.
+
+2. str_subset(x, "\\"\\'\\\\ ")
+
+3. "\\\\\\.\\.+"
+
+4. "\\$\\ ^\\$ "
+
+
+
+A partir de las palabras dadas en stringr::words, escribe expresiones regulares para localizar palabras que:
+
+Empiecen por "y"
+Acaben por "x"
+Tengan exactamente tres letras (sin usar la función str_length())
+Tengan siete o más letras.
+Como la lista es algo larga, intenta usar el parámetro match del str_view() para acotar y ver solo los resultados positivos
+
+1. words[str_detect(words,"^y")]
+
+2. words[str_detect(words,"x$")]
+
+3. words[str_detect(words,"^...$")]
+
+4. w<-words[str_detect(words,"^.......")]
+
+Con el mismo dataset de stringr::words
+
+Crea una expresión regular que se quede con las palabras que:
+empiezan por vocal
+contengan solo consonantes
+Acaben con -ed (verbos en pasado) pero no en -eed
+Acaben con -ing o -ise
+¿Verifíca la regla de gramática "i antes de e excepto si va después de c" de la gramática inglesa.
+¿Todas las palabras que tienen una q les sigue después una u?
+Adapta mi código para escribir expresiones regulares que coincidan con teléfonos de tu región. 
+Crea una expresión regular que se quede con las palabras que cumplan :
+empiezan con tres consonantes
+tienen tres o más vocales consecutivas
+tienen dos o más pares de consonante-vocal seguidas
+1. words[str_detect(words,"^[aeiou]")]
+
+2. words[str_detect(words,"[^aeiou]")]
+
+3. words[str_detect(words,"[^e]ed$")]
+
+4. words[str_detect(words,"ise$|ing$")]
+
+5. table(str_detect(words[str_detect(words,"q.")],"qu")), SI
+
+6. phone <- regex("
+
+               (\\d{2})  #código de área
+
+               [) - ]?    #cierre de paréntesis, guión o espacio opcionales
+
+               (\\d{2})  #dos dígitos de teléfono
+
+               [ -]?     #espacio o guión opcional
+
+               (\\d{2})  #dos dígitos
+
+               [ -]?     #espacio o guión opcional
+
+               (\\d{2})  #dos dígitos
+
+               [ -]?     #espacio o guión opcional
+
+               (\\d{2})  #dos dígitos
+
+               ", comments = TRUE)
+
+str_match("(55)5642-1245",phone)
+
+7. words[str_detect(words,"^[^aeiou][^aeiou][^aeiou]")]
+
+8. words[str_detect(words,"[aeiou][aeiou][aeiou]+")]
+
+9. words[str_detect(words,"[^aeiou][^aeiou]+")]
+
+Resuelve el crucigrama fácil de la web: https://regexcrossword.com/challenges/beginner/puzzles/1
+
+
+Describe las palabras que devolverá la expresión regular:
+
+"(.)(.)(.).*\\3\\2\\1"
+"(.).\\1.\\1"
+(..)\1
+"(.)(.)\\2\\1"
+(.)\1\1
+"\\\\{4}"
+\d{4}-\d{2}-\d{2}
+"\\{.+\\}"
+^.*$
+1.  Tres letras cualesquiera, seguido de una cualquiera seguido de las tres primeras en orden invertido. ej paragraph
+
+2. Una letra seleccionada seguida de cualquiera, seguido de la primera letra, seguido de cualquiera letra seguido de la primera . ej eleven
+
+3. Dos letras seguidas que se repiten enseguida, eje. remember
+
+4. Dos letras seguido de las mismas invertidas ej letter, million
+
+5. Una letra que se repite dos veces más.
+
+6.  Busca una diagonal invertida \ junto con
+
+7. Diagonal repetida cuatro veces
+
+8. Diagonal invertida, seguido de una letra que puede repetirse más de una vez y otra diagonal
+
+9.  Palabras que contengan una o más letras
+
+Crea una expresión regular que se quede con las palabras que cumplan :
+
+Empiezan y acaban con el mismo carácter
+Contienen pares de letras repetidas (church por ejemplo)
+Contienen una letra repetida en al menos tres lugares (las tres a de manzana)
+1-  "(^.).*\\1$"
+
+2. "(..).*\\1"
+
+3. "(.).*\\1{2}"
+
+Escribe una expresión regular y una combinación de múltiples str_detect() para localizar:
+
+Palabras que empiezan o acaban con p
+Palabras que empiezan con vocal y acaban con consonante
+Hay alguna palabra que contenga todas las vocales al menos una vez?
+La palabra que tiene el mayor número de vocales
+La palabra con la mayor proporción de vocales
+1. words[str_detect(words,"^p")]
+
+2. words[str_detect(words,"^[aeiou].*[^aeiou]$")]
+
+3. words[str_detect(words,"a.*e.*i.*o.u")] NO
+
+4. max(str_count(words,"[aeiou]"))
+
+words[str_detect(words,"([aeiou].*){5}")]
+
+5. words[str_detect(words,"([aeiou].*){5}")]
+
+Retoma el ejemplo de los colores para localizar exactamente los colores (flickered es marcado como color porque contiene red cuando realmente no es así)
+Busca todas primeras palabras del dataset de Harvard
+Busca todos los plurales de palabras (en qué tienen que acabar?)
+Busca todas las palabras acabadas en ing.
+Busca las palabras que le siguen a cualquier número ('one', 'two', 'three'...)
+Encuentra todas las contracciones separando la parte de antes y después del apóstrofo.
+2. sentences[str_detect(sentences,color_match)]
+
+3. sentences[str_detect(sentences,"s |s\\.")]
+
+4. sentences[str_detect(sentences,"ing |ing\\.")]
+
+5. numbers<-c(" one "," two "," trhee "," four "," five "," six "," seven "," eight "," nine "," ten ")
+
+numbers_match<-str_c(numbers,collapse= "|")
+
+x<-sentences[str_detect(sentences,numbers_match)]
+
+y<-str_replace(x,numbers_match," %")
+
+str_replace(str_extract(y,"%.+"),"%","")
+
+6. str_replace(sentences[str_detect(sentences,"'")],"'","|")
+
+Divide un string "manzanas, plátanos y peras" en tres componentes individuales
+Piensa por qué es mejor usar boundary("word") en lugar de " ".
+Qué hace la división por un string vacío? 
+Cómo encontrarías todos los strings con un backslash \ con una regex o con un fixed?
+Cuales son las cinco palabras más comunes de sentences?
+1. x<-c("manzanas, plátanos y peras")
+
+y<-str_replace(str_replace(x,"y",""),","," ")
+
+z<-str_split(y,"  ")
+
+2.  Debido a que automaticamente hace la divición por letras sin importar el número de espacios.
+
+3.  Regresa una lista de NA´s
+
+4. sentences[str_detect(sentences,"\\\\")==T]
+
+5. str_split(sentences,boundary("word")) %>%
+
+  unlist() %>%
+
+  as.tibble() %>%
+
+  group_by(value) %>%
+
+  summarise(n=n()) %>%
+
+  arrange(desc(n)) %>%
+
+  head(5)
+
+
+Usa stringi para:
+
+Contar el número de palabras
+Encontrar strings duplicados
+Generar un texto aleatorio
+Cambiar el idioma de ordenado de la función stringi_sort()
+1. stri_count_fixed(s, " ")+1
+
+2. stri_duplicated()
+
+3. stri_rand_strings()
+
+4. country=
 

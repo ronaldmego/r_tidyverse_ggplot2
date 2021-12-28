@@ -1,0 +1,2 @@
+"0","sent <- ""El Perro de San Roque no tiene rabo. Y esto es todo."""
+"0","str_view_all(sent,boundary(""word""))"

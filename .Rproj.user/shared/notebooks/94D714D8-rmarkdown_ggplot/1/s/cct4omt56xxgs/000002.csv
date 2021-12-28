@@ -1,0 +1,4 @@
+"0","#volvemos al scatterplot"
+"0","##positio=""jitter"" para que los puntos no se superpongan"
+"0","ggplot(data = mpg, mapping=aes(x=displ,y=hwy))+"
+"0","  geom_point(position=""jitter"")"

@@ -1,0 +1,5 @@
+"0","good_diamonds <- diamonds %>%"
+"0","  mutate(y=ifelse(y<2 | y>30, #condicion"
+"0","                  NA, #valor si es verdadero"
+"0","                  y) #valor si es falso"
+"0","         ) "

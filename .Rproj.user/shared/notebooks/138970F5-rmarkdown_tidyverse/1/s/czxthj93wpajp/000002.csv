@@ -1,0 +1,6 @@
+"0","group_by_dest <- group_by(flights, dest)"
+"0","delay <-  summarise(group_by_dest,"
+"0","                      count=n(),"
+"0","                      dist=mean(distance,na.rm=T),"
+"0","                      delay=mean(arr_delay,na.rm=T))"
+"0","delay <- filter(delay, count>100,dest != ""HNL"")"

@@ -1,0 +1,2 @@
+"0","apples <- c(""manzana"",""Manzana"",""MANZANA"")"
+"0","str_view(apples,""manzana"")"

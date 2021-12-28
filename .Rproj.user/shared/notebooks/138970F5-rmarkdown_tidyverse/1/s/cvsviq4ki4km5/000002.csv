@@ -1,0 +1,5 @@
+"0","flights %>%"
+"0","  filter(!is.na(dep_delay),!is.na(arr_delay)) %>%"
+"0","  group_by(carrier) %>%"
+"0","  mutate(rank=min_rank(dep_time)) %>%"
+"0","  filter(rank %in% range(rank))"

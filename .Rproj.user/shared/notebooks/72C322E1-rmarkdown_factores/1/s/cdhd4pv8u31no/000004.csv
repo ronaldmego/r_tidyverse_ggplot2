@@ -1,0 +1,4 @@
+"0","gss_cat %>%"
+"0","  mutate(marital=marital %>% fct_infreq() %>% fct_rev) %>%"
+"0","  ggplot(aes(marital))+"
+"0","  geom_bar()"

@@ -1,0 +1,5 @@
+"0","##FACETS"
+"0","# facet_wrap(~<FORMULA_VARIABLE>): la variable debe ser discreta"
+"0","ggplot(data=mpg)+"
+"0","  geom_point(mapping=aes(x=displ,y=hwy))+"
+"0","  facet_wrap(~class,nrow=3)"

@@ -1,0 +1,5 @@
+"0","transmute(flights,"
+"0","          air_time,"
+"0","          hour_air = air_time%/% 60,"
+"0","          minute_air= air_time %%60"
+"0","          )"

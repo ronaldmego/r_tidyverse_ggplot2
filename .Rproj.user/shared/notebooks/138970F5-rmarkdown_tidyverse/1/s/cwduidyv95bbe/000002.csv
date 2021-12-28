@@ -1,0 +1,4 @@
+"0","diamonds %>%"
+"0","  count(cut,clarity) %>%"
+"0","  ggplot(aes(clarity,cut,fill=n))+"
+"0","  geom_tile()"

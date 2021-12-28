@@ -1,0 +1,3 @@
+"0","#se obtiene el mismo diagrama de barras con este otro metodo"
+"0","ggplot(data=diamonds)+"
+"0","  stat_count(mapping = aes(x=cut))"

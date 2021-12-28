@@ -1,0 +1,9 @@
+"0","#combinando dos graficos"
+"0","ggplot(data=mpg)+"
+"0","  geom_point(mapping = aes(x=displ,y=hwy,linetype=drv,color=drv))+"
+"0","  geom_smooth(mapping=aes(x=displ,y=hwy,linetype=drv,color=drv))"
+"2","Warning:"
+"2"," Ignoring unknown aesthetics: linetype
+"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"

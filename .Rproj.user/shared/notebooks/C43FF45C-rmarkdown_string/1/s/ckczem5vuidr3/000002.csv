@@ -1,0 +1,12 @@
+"0","#install.packages(""microbenchmark"")
+microbenchmark::microbenchmark(
+  regex=str_detect(sentences,""the""),
+  fixed=str_detect(sentences,fixed(""the""))
+)
+"
+"1","Unit: "
+"1",""
+"1","microseconds"
+"1",""
+"1","
+"

@@ -1,0 +1,7 @@
+"0","colors <- c(""red"",""orange"",""yellow"",""green"",""blue"",""purple"")"
+"0","color_match <- str_c(colors, collapse = ""|"")"
+"0","color_match"
+"1","[1]"
+"1"," ""red|orange|yellow|green|blue|purple"""
+"1","
+"

@@ -1,0 +1,3 @@
+"0","#número de cilindros ""cyl"" vs número de millas de  autopista por galón de combustible ""hwy"""
+"0","ggplot(data=mpg) +"
+"0","  geom_point(mapping=aes(x=cyl,y=hwy))"

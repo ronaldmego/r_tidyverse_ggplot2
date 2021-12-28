@@ -1,0 +1,5 @@
+"0","flights %>%"
+"0","  filter(!is.na(dep_delay),!is.na(arr_delay)) %>%"
+"0","  group_by(carrier) %>%"
+"0","  summarise(more_than_hour_delay=mean(arr_delay>60)) %>%"
+"0","  arrange(desc(more_than_hour_delay))"

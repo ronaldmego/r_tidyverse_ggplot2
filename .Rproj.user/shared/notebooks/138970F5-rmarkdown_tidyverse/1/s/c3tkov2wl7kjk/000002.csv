@@ -1,0 +1,8 @@
+"0","flights %>%"
+"0","  group_by(dest) %>%"
+"0","  summarise("
+"0","    count=n(),"
+"0","    carriers=n_distinct(carrier),"
+"0","    arrivals=sum(!is.na(arr_delay)) #is.na lo convierte a logico y el SUM se terminan convirtiendo en un COUNT de no nulos."
+"0","  ) %>%"
+"0","  arrange(desc(carriers))"

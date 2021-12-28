@@ -1,0 +1,17 @@
+"0","#para graficar maxims minimos y mediana"
+"0","ggplot(data = diamonds)+"
+"0","  stat_summary("
+"0","    mapping = aes(x=cut,y=depth),"
+"0","    fun.ymin = min,"
+"0","    fun.ymax = max,"
+"0","    fun.y=median,"
+"0","  )"
+"2","Warning:"
+"2"," `fun.y` is deprecated. Use `fun` instead.
+"
+"2","Warning:"
+"2"," `fun.ymin` is deprecated. Use `fun.min` instead.
+"
+"2","Warning:"
+"2"," `fun.ymax` is deprecated. Use `fun.max` instead.
+"

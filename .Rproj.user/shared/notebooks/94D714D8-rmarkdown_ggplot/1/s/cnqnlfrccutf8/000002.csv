@@ -1,0 +1,4 @@
+"0","#con coordinate quickmap mejora el aspect ratio"
+"0","ggplot(usa,aes(long,lat,group=group))+"
+"0","  geom_polygon(fill=""blue"",color=""white"")+"
+"0","  coord_quickmap()"

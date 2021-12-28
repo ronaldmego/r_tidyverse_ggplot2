@@ -1,0 +1,2 @@
+"0","#Encuentra todos los vuelos que salieron con más de una hora de retraso pero consiguieron llegar con menos de 30 minutos de retraso (el avión aceleró en el aire)"
+"0","filter ( flights , dep_delay > 60 & arr_delay < 30)"

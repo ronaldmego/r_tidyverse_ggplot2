@@ -1,0 +1,212 @@
+---
+title: "Factores"
+author: "Ronald Mego"
+date: "26/12/2021"
+output: html_document
+---
+
+#VIDEO: CREANDO UN FACTOR EN R
+```{r}
+library(tidyverse)
+library(forcats)
+```
+
+#cuando son strings, se organiza todo como texto libre
+```{r}
+x1 <- c("Vie","Lun","Mar","Dom")
+sort(x1)
+```
+
+#creando factores puedes corregir este problema.
+```{r}
+day_levels <- c("Lun","Mar","Mie","Jue","Vie","Sab","Dom")
+
+y1 <- factor(x1,levels = day_levels)
+
+sort(y1)
+```
+#incluso detecta errores, vamos a escribir Viernes a proposito mal
+```{r}
+x2 <- c("Vim","Lun","Mar","Dom")
+y2 <- factor(x2,levels = day_levels)
+y2
+sort(y2)
+```
+podemos crear un factor a partir de todos los valores unicos de un vector
+```{r}
+f1 <- factor(x1,levels = unique(x1))
+f1
+```
+#ordena por el orden que aparecen
+```{r}
+f2 <- x1 %>% factor() %>% fct_inorder()
+f2
+```
+#mirando los factores
+```{r}
+levels(f2)
+```
+VIDEO: LA ENCUESTA ANUAL AMERICANA
+```{r}
+data(gss_cat)
+gss_cat
+```
+#faltan los "not applicable"
+```{r}
+gss_cat %>% count(race)
+```
+#en ggplot los podemos visualizar con el DROP=FALSE
+```{r}
+gss_cat %>% ggplot(mapping = aes(x=race))+
+  geom_bar() +
+  scale_x_discrete(drop=FALSE) #MUESTRA LOS OCULTOS
+```
+los casados
+```{r}
+gss_cat %>% ggplot(mapping = aes(x=race))+
+  geom_bar() +
+  scale_x_discrete(drop=FALSE) #MUESTRA LOS OCULTOS
+```
+
+VIDEO: CAMBIANDO EL ORDEN DE LOS NIVELES DE UN FACTOR
+```{r}
+religion_summary <- gss_cat %>%
+  group_by(relig) %>%
+  summarise(
+    age=mean(age,na.rm=TRUE),
+    tvhours=mean(tvhours,na.rm=TRUE),
+    n=n()
+  )
+religion_summary
+```
+#graficando cual es la religion que ve mas television
+```{r}
+ggplot(religion_summary,aes(tvhours,relig))+geom_point()
+```
+#graficando pero ordenando aprovechando los factores
+```{r}
+ggplot(religion_summary,aes(tvhours,fct_reorder(relig,tvhours)))+geom_point()
+```
+es mejor agregar una columna con el orden con mutate
+```{r}
+religion_summary %>%
+  mutate(relig=fct_reorder(relig,tvhours)) %>% #reordena el factor por tvhours
+  ggplot(aes(tvhours,relig))+geom_point()
+```
+#ejemplo: ordena los ingresos por edad
+observamos que el nivel "Not applicable" al inicio, mejor pasarlo al final.
+```{r}
+gss_cat %>%
+  group_by(rincome) %>%
+  summarise(
+    age=mean(age,na.rm=TRUE),
+    tvhours=mean(tvhours,na.rm=TRUE),
+    n=n()
+  ) %>%
+  #mutate(rincome = fct_reorder(rincome,age)) %>%
+  ggplot(aes(age,rincome))+
+  geom_point()
+```
+la funcion fct_relevel es util para enviar al final niveles no interesantes
+```{r}
+gss_cat %>%
+  group_by(rincome) %>%
+  summarise(
+    age=mean(age,na.rm=TRUE),
+    tvhours=mean(tvhours,na.rm=TRUE),
+    n=n()
+  ) %>%
+  
+  #aqui
+mutate(rincome=fct_relevel(rincome,"Not applicable")) %>%
+  ggplot(aes(age,rincome))+
+  geom_point()
+```
+haciendo una tabla resumen de cantidad por edad y marital
+```{r}
+by_age <- gss_cat %>%
+  filter(!is.na(age)) %>%
+  group_by(age,marital) %>%
+  count()
+```
+
+#no es tan bonito, porque en la leyenda, los que no responden salen al inicio, toca mandarlos al final
+```{r}
+by_age %>%
+  ggplot(aes(age,n,color=marital))+
+  geom_line(na.rm=TRUE)
+```
+
+```{r}
+ggplot(by_age,aes(age,n,color=fct_reorder2(marital,age,n)))+
+  geom_line(na.rm=TRUE)+
+  labs(color="Marital")
+```
+#fct_infreq ordena por la mayor cantidad de valores en cada nivel 
+```{r}
+gss_cat %>%
+  mutate(marital=marital %>% fct_infreq()) %>%
+  ggplot(aes(marital))+
+  geom_bar()
+```
+tambien puedes invertir el orden
+```{r}
+gss_cat %>%
+  mutate(marital=marital %>% fct_infreq() %>% fct_rev) %>%
+  ggplot(aes(marital))+
+  geom_bar()
+```
+VIDEO: MUTAR LOS NIVELES DE LOS FACTORES
+
+vemos su inclinacion politica
+```{r}
+gss_cat %>% count(partyid)
+```
+
+```{r}
+gss_cat %>% mutate(partyid = fct_recode(partyid,
+  "Republican, strong"     =    "Strong republican",
+  "Republican, weak"       =    "Not str republican",
+  "Independent, near rep"  =    "Ind,near rep",
+  "Independent, near dem"  =    "Ind,near dem",
+  "Democrat, weak"         =    "Not str democrat",
+  "Democrat, strong"       =    "Strong democrat"
+)) %>%
+  count(partyid)
+```
+
+vemos que los tres primeros niveles podrian agruparse como "Other"
+```{r}
+gss_cat %>% mutate(partyid = fct_recode(partyid,
+  "Republican, strong"     =    "Strong republican",
+  "Republican, weak"       =    "Not str republican",
+  "Independent, near rep"  =    "Ind,near rep",
+  "Independent, near dem"  =    "Ind,near dem",
+  "Democrat, weak"         =    "Not str democrat",
+  "Democrat, strong"       =    "Strong democrat",
+  "Other"                  =    "No answer",
+  "Other"                  =    "Don't know",
+  "Other"                  =    "Other party"
+)) %>%
+  count(partyid)
+```
+agrupando factores
+```{r}
+gss_cat %>%
+  mutate(partyid=fct_collapse(partyid,
+                              other=c("No answer","Don't know","Other party"),
+                              rep=c("Strong republican","Not str republican"),
+                              ind=c("Ind,near rep","Ind,near dem","Independent"),
+                              dem=c("Not str democrat","Strong democrat")
+                              )) %>%
+  count(partyid)
+```
+Como organizar rapidamente los menos importantes en otros usando la funcion fct_lump
+```{r}
+gss_cat %>%
+  mutate(relig = fct_lump(relig,n=5)) %>%
+           count(relig,sort=TRUE)
+```
+
+
+

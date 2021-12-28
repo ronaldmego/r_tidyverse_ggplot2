@@ -1,0 +1,7 @@
+"0","delays <- flights %>%"
+"0","  group_by(dest) %>%"
+"0","  summarise(count=n(),"
+"0","            dist=mean(distance,na.rm=T),"
+"0","            delay=mean(arr_delay,na.rm=T)"
+"0","            ) %>%"
+"0","  filter(count>100,dest!=""NL"")"

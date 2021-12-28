@@ -1,0 +1,2 @@
+"0","ggplot(data=diamonds_pred)+"
+"0","  geom_point(mapping = aes(x=carat,y=resid))"

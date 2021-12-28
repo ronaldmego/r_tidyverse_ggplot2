@@ -1,0 +1,3 @@
+"0","gss_cat %>%"
+"0","  mutate(relig = fct_lump(relig,n=5)) %>%"
+"0","           count(relig,sort=TRUE)"

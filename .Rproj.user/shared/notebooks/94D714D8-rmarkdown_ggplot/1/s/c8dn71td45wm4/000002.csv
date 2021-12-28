@@ -1,0 +1,6 @@
+"0","#sin embargo es mejor usar geom_col cuando ya existe la variable ponderada,..."
+"0","#...se obtendra el mismo resultado que usando la funcion""identity"" en geom_bar"
+"0",""
+"0","#tarea diferencia entre bar y col"
+"0","ggplot(data=demo_diamonds)+"
+"0","  geom_col(mapping=aes(x=cut,y=freqs))"

@@ -1,0 +1,2 @@
+"0","df <- tibble (x = c (1,2,NA,4,5)) #data demo con NA"
+"0","filter(df,is.na(x)|x>2) #subconjunto que incluye el NA"

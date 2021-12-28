@@ -1,0 +1,10 @@
+"0","#haciendo un grafico , representando una tercera variable tipo clase por la forma en el scater plot:"
+"0","ggplot(data=mpg)+"
+"0","  geom_point(mapping=aes(x=displ,y=hwy, shape=class))"
+"2","Warning:"
+"2"," The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; you have 7.
+Consider specifying shapes manually if you must have them.
+"
+"2","Warning:"
+"2"," Removed 62 rows containing missing values (geom_point).
+"

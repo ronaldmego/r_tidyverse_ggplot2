@@ -1,0 +1,3 @@
+"0","#generando barras a partir de datos ponderados"
+"0","ggplot(data=demo_diamonds)+"
+"0","  geom_bar(mapping = aes(x=cut,y=freqs),stat=""identity"")"

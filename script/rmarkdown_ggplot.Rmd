@@ -42,7 +42,8 @@ help(mpg) #otra forma de verlo completo
 dput(mpg)
 ```
 
-
+UNA FORMA DE AUTOMATIZAR GRAFICOS TIPO TABLEAU CON ESQUISSE
+https://www.youtube.com/watch?v=6LV_p3Zi-LM
 ```{r}
 #OTRA FORMA DE DIBUJAR con libreria esquisse
 #library(esquisse) #par ejecutar esquisser()
@@ -50,6 +51,21 @@ dput(mpg)
 #demo equisser
 #esquisser()
 ```
+
+OTRA FORMA DE AUTOMATIZAR GRAFICOS DE SERIES DE TIEMPO CON TSVIZ
+https://github.com/xtreamsrl/tsviz
+https://www.youtube.com/watch?v=t8PZbP5b8EM&t=1870s
+```{r}
+#install.packages("tsviz")
+
+#library(tsviz)
+
+#p <- tsviz::crypto_prices
+
+#tsviz::tsviz()
+```
+
+
 
 ```{r}
 #los coches con motor más grande consumen mas combustible

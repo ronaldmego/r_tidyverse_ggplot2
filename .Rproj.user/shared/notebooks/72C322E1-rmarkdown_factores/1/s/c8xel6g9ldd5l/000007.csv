@@ -1,0 +1,3 @@
+"0","religion_summary %>%"
+"0","  mutate(relig=fct_reorder(relig,tvhours)) %>% #reordena el factor por tvhours"
+"0","  ggplot(aes(tvhours,relig))+geom_point()"

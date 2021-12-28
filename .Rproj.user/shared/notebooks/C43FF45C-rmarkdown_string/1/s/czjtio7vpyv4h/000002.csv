@@ -1,0 +1,8 @@
+"0","str_replace_all(c(""1 coche"",""2 teléfonos"",""3 amigos""),"
+"0","                c(""1""=""un"",""2""=""dos"",""3""=""tres""))"
+"1","[1]"
+"1"," ""un coche""     "
+"1"," ""dos teléfonos"""
+"1"," ""tres amigos""  "
+"1","
+"

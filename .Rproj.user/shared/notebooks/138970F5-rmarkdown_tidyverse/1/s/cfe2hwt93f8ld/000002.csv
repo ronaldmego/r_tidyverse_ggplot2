@@ -1,0 +1,6 @@
+"0","("
+"0","  unusual_diamonds <- diamonds %>%"
+"0","  filter(y<2 | y>30) %>%"
+"0","  select(price,x,y,x) %>%"
+"0","  arrange(y)"
+"0",")"

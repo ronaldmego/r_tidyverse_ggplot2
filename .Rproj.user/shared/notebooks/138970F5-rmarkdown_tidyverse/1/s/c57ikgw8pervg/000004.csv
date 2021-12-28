@@ -1,0 +1,1 @@
+"0","filter( flights , month %in% c ( 5 , 6) ) #filtra donde el mes es mayo o junio"

@@ -1,0 +1,3 @@
+"0","mutate(summarise(group_by(flights,carrier),"
+"0","          delay=mean(dep_delay,na.rm=T)),"
+"0","          sorted=min_rank(delay))"

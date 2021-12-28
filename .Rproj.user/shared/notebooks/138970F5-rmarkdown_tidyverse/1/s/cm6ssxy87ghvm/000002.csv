@@ -1,0 +1,3 @@
+"0","batters %>%"
+"0","  filter(bats>100) %>%"
+"0","  arrange(desc(bat.average))"

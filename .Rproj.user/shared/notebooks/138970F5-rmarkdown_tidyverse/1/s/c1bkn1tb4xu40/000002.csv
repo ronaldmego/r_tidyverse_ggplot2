@@ -1,0 +1,5 @@
+"0","batters <- batting %>%"
+"0","  group_by(playerID) %>%"
+"0","  summarise(hits=sum(H,na.rm=T),"
+"0","            bats=sum(AB,na.rm=T),"
+"0","            bat.average=hits/bats)"

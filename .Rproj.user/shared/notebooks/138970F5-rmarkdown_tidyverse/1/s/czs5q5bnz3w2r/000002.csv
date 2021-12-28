@@ -1,0 +1,3 @@
+"0","ggplot(data = diamonds,"
+"0","       mapping = aes(x = cut, y = price)"
+"0",") + geom_boxplot()"

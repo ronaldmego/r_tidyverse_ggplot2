@@ -1,0 +1,6 @@
+"0","transmute(flights_new ,"
+"0","       time_gain = arr_delay - dep_delay,"
+"0","       air_time_hour= air_time/60,"
+"0","       flight_speed = distance/air_time_hour,"
+"0","       time_gain_per_hour = time_gain / air_time_hour"
+"0","       ) -> data_from_flights"

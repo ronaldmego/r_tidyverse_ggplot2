@@ -1,0 +1,5 @@
+"0","#levanto data de prueba"
+"0","data(""mpg"")"
+"0","data(""diamonds"")"
+"0",""
+"0","ggplot2::mpg #base de datos de coches"

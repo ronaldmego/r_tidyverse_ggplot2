@@ -1,0 +1,12 @@
+"0","flights_dt %>%"
+"0","  mutate(minute=minute(dep_time)) %>%"
+"0","  group_by(minute) %>%"
+"0","  summarise("
+"0","    avg_delay=mean(arr_delay,na.rm=TRUE),"
+"0","    n=n()"
+"0","  ) %>%"
+"0","  ggplot(aes(minute,avg_delay))+"
+"0","  geom_line()"
+"2","Warning:"
+"2"," Removed 1 row(s) containing missing values (geom_path).
+"

@@ -1,0 +1,3 @@
+"0","jan1 <- filter ( flights , month == 1 , day == 1 ) #vuelos del 1/1"
+"0","may19 <-  filter (flights , month == 5 , day == 19 ) #vuelos del 19/5"
+"0","dec25 <- filter (flights, month == 12 , day == 25 ) #vuelos el 25/12"

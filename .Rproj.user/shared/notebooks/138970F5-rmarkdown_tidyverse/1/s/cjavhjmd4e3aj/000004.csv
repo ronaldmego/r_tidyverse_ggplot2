@@ -1,0 +1,1 @@
+"0","transmute(flights,sched_dep_time,ht=sched_dep_time%/%100,mt=sched_dep_time%%100,m=ht*60+mt)"

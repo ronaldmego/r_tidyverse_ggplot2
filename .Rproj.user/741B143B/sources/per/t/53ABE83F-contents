@@ -1,0 +1,145 @@
+---
+title: "Churn"
+author: "Ronald Mego"
+date: "3/1/2022"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(survival)
+```
+
+```{r}
+AIDSsurv <- tribble(
+                    ~Time,~Death,
+                    2    ,  1,
+                    3    ,  0,
+                    6    ,  1,
+                    6    ,  1,
+                    7    ,  1,
+                    10   ,  0,
+                    15   ,  1,
+                    15   ,  1,
+                    16   ,  1,
+                    27   ,  1,
+                    30   ,  1,
+                    32   ,  1
+                    )
+```
+
+
+```{r}
+attach(AIDSsurv)
+km.model <- survfit(Surv(Time, Death) ~1,
+                     type="kaplan-meier")
+```
+
+```{r}
+km.model
+```
+
+```{r}
+summary(km.model)
+```
+
+```{r}
+plot(km.model, conf.int = F,xlab = "Time (months)",
+     ylab="%Alive = S(t)", main="KM-Model", las=1)
+```
+
+#otro ejemplo
+https://www.r-bloggers.com/2017/09/survival-analysis-with-r-3/
+```{r}
+library(survival)
+library(ranger)
+library(ggplot2)
+library(dplyr)
+library(ggfortify)
+```
+
+
+```{r}
+data(veteran)
+head(veteran)
+##   trt celltype time status karno diagtime age prior
+## 1   1 squamous   72      1    60        7  69     0
+## 2   1 squamous  411      1    70        5  64    10
+## 3   1 squamous  228      1    60        3  38     0
+## 4   1 squamous  126      1    60        9  63    10
+## 5   1 squamous  118      1    70       11  65    10
+## 6   1 squamous   10      1    20        5  49     0
+```
+
+```{r}
+km <- with(veteran,Surv(time,status))
+head(km,80)
+```
+
+```{r}
+km_fit <- survfit(Surv(time,status)~1, data=veteran)
+```
+
+```{r}
+summary(km_fit,times=c(1,30,60,90*(1:10)))
+```
+
+```{r}
+autoplot(km_fit)
+```
+#otra guia
+https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html
+```{r}
+library(survival)
+library(survminer)
+library(lubridate)
+```
+
+
+```{r}
+date_ex <- tibble(
+  sx_date = c("2007-06-22","2004-02-13","2010-10-27"),
+  last_fup_date=c("2017-04-15","2018-07-04","2016-10-31")
+)
+
+date_ex
+```
+
+Formatting dates - lubridate package
+We can also use the lubridate package to format dates. In this case, use the ymd function
+```{r}
+date_ex <- date_ex %>% 
+  mutate(
+    sx_date = ymd(sx_date), 
+    last_fup_date = ymd(last_fup_date)
+    )
+```
+Calculating survival times - lubridate
+Using the lubridate package, the operator %--% designates a time interval, which is then converted to the number of elapsed seconds using as.duration and finally converted to years by dividing by dyears(1), which gives the number of seconds in a year.
+
+```{r}
+(
+date_ex %>% 
+  mutate(
+    os_yrs = 
+      as.duration(sx_date %--% last_fup_date) / dyears(1)
+    )
+
+)
+```
+```{r}
+head(lung)
+```
+
+```{r}
+bladder
+```
+#http://www.sthda.com/english/wiki/survival-analysis-basics
+
+```{r}
+
+```
+

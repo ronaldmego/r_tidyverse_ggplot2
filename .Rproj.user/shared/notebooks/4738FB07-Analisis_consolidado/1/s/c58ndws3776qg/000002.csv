@@ -1,0 +1,116 @@
+"0","HondurasWallet1 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202101.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m335849[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (39): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (3): IS_LDI, CONVERGENTE, TRX_CANAL_TSAPP
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet2 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202102.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m338567[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (36): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (6): IS_LDI, CONVERGENTE, MONTO_BI, TRX_BI, REV_BI, TRX...
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet3 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202103.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m357953[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (39): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (3): IS_LDI, CONVERGENTE, TRX_CANAL_TSAPP
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet4 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202104.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m332752[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (38): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (4): IS_LDI, CONVERGENTE, TRX_CANAL_SMS, TRX_CANAL_TSAPP
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet5 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202105.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m357032[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (37): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (5): IS_LDI, CONVERGENTE, MONTO_BI, TRX_BI, REV_BI
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet6 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202106.csv"", delim="","")"
+"2","Warning:"
+"2"," One or more parsing issues, see `problems()` for details
+"
+"1","[1mRows: [22m[34m350605[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (39): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (3): IS_LDI, CONVERGENTE, TRX_CANAL_TSAPP
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","HondurasWallet7 <- read_delim(""Data/Honduras/Base_Txn_Clientes_202107.csv"", delim="","")"
+"1","[1mRows: [22m[34m360593[39m [1mColumns: [22m[34m49[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m-----------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (6): CNTRCT_CD, MUNICIPIO, DEPARTAMENTO, IS_WALLET, TIP...
+[32mdbl[39m  (40): MES, MSISDN, AR_KEY, CANTIDAD_PRODUCTOS, MONTO_CI,...
+[33mlgl[39m   (2): IS_LDI, CONVERGENTE
+[34mdate[39m  (1): FECHA_REGISTRO
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"

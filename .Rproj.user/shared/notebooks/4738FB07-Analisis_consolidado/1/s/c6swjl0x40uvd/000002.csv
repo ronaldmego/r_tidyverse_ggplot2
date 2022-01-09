@@ -1,0 +1,2 @@
+"0","HondurasWallet <- rbind(HondurasWallet1,HondurasWallet2,HondurasWallet3,HondurasWallet4,HondurasWallet5,HondurasWallet6,HondurasWallet7)"
+"0","rm(HondurasWallet1,HondurasWallet2,HondurasWallet3,HondurasWallet4,HondurasWallet5,HondurasWallet6,HondurasWallet7)"

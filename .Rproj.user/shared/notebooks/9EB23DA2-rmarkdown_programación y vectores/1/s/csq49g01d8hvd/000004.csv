@@ -1,0 +1,4 @@
+"0","x <- c(abc=1,def=2.ghi=3)
+"
+"2","Error: unexpected symbol in ""x <- c(abc=1,def=2.ghi""
+"

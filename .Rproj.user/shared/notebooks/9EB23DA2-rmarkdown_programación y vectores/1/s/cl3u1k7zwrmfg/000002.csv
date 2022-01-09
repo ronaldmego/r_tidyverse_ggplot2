@@ -1,0 +1,5 @@
+"0","show_nas <- function(df){"
+"0","  n <- sum(is.na(df))"
+"0","  cat(""Número de NAs: "",n, ""\n"", sep="""")"
+"0","  invisible(df)"
+"0","}"

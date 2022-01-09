@@ -1,0 +1,731 @@
+---
+title: "Programación Hacker R"
+author: "Ronald Mego"
+date: "29/12/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+Creando funciones con ...
+```{r}
+rule <- function(...,pad="#"){
+  title1 <- paste0(...)
+  width <- getOption("width") - nchar(title1) -5
+  cat(stringr::str_dup(pad,width/2)," ",title1," ", str_dup(pad,width/2))
+}
+```
+
+```{r}
+rule("VIDEO VARIABLES DE RETORNO")
+```
+
+```{r}
+#como detener cuando hay un error
+tryCatch(
+          stop("!"), #genera un error artificial
+          error=function(e) "Me he encontrado un error"
+          )
+```
+
+T pie
+```{r}
+rnorm(1000) %>%
+  matrix(ncol=2) %T>% #entrega dos salidas
+  plot() %>% #primera salida
+  str() #segunda salida
+```
+
+
+
+esta seria la version manual
+```{r}
+#creamos una tibble para probar las funciones
+df <- tibble::tibble(
+  a=rnorm(20),
+  b=rnorm(20),
+  c=rnorm(20),
+  d=rnorm(20),
+  e=rnorm(20)
+)
+
+#reescalamos manualmente
+df$a <- (df$a-min(df$a, na.rm = TRUE))/(max(df$a, na.rm = TRUE)-min(df$a, na.rm = TRUE))
+df$b <- (df$a-min(df$b, na.rm = TRUE))/(max(df$b, na.rm = TRUE)-min(df$b, na.rm = TRUE))
+df$c <- (df$a-min(df$c, na.rm = TRUE))/(max(df$c, na.rm = TRUE)-min(df$c, na.rm = TRUE))
+df$d <- (df$a-min(df$d, na.rm = TRUE))/(max(df$d, na.rm = TRUE)-min(df$d, na.rm = TRUE))
+df$e <- (df$a-min(df$e, na.rm = TRUE))/(max(df$e, na.rm = TRUE)-min(df$e, na.rm = TRUE))
+```
+
+vamos simplificando
+```{r}
+x <- df$a
+rng <- range(x, na.rm = TRUE)
+(x - rng[1])/(rng[2] - rng[1])
+```
+y ahora lo pasamos a funcion
+```{r}
+rescale_0_1 <- function(x){
+  
+  rng <- range(x , nam.rm = TRUE)
+  (x-rng[1])/(rng[2]-rng[1])
+  
+}
+```
+
+usamos la funcion
+```{r}
+rescale_0_1(df$a)
+```
+#otras pruebas de nuestra funcion
+```{r}
+rescale_0_1(c(0,5,10))
+rescale_0_1(c(-1,0,1))
+rescale_0_1(c(1,2,NA,4,5))
+```
+finalmente nuestro codigo manual se reduce a:
+```{r}
+#creamos una tibble para probar las funciones
+df <- tibble::tibble(
+  a=rnorm(20),
+  b=rnorm(20),
+  c=rnorm(20),
+  d=rnorm(20),
+  e=rnorm(20)
+)
+
+#reescalamos con la funcion creada
+df$a <- rescale_0_1(df$a)
+df$b <- rescale_0_1(df$b)
+df$c <- rescale_0_1(df$c)
+df$d <- rescale_0_1(df$d)
+df$e <- rescale_0_1(df$e)
+```
+
+#VIDEO CONDICIONALES
+
+if(condición){
+ #código a ejecutar si la condición es TRUE
+} else {
+ #código a ejecutar si la condición es FALSE
+}
+
+creo una funcion que detecta si las columnas tienen nombres
+```{r}
+has_name <- function(x){
+  nms <- names(x)
+  if(is.null(nms)){
+    #no tiene nombre asignado
+    rep(FALSE, length(x))
+  } else {
+    #ausencia de NAs y de ""
+    !is.na(nms) & nms !=""
+  }
+}
+```
+
+```{r}
+has_name(c(1,2,3))
+```
+
+```{r}
+has_name(mtcars)
+```
+
+```{r}
+has_name(tribble(
+  ~x, ~y, ~` `,
+  1 ,  2,   3
+))
+```
+#tenemos al menos un verdadero
+```{r}
+if(any(c(T,F))){
+  "tenemos almenos un verdadero"
+} else
+  "no hay ningun verdadero"
+```
+
+#tenemos todas las condiciones verdaderas
+```{r}
+if(all(c(T,F))){
+  "tenemos todas las condiciones verdaderas"
+} else{
+  "tenemos alguna condicion falsa"
+}
+```
+#varias condiciones
+```{r}
+if(condicion){
+  #resultado 1
+} else if(condicion2){
+  #resultado 2
+} else if(condicion3){
+  #resultado 3
+} else {
+  #resultado por defecto
+}
+```
+
+#cuando hay varias condiciones, es mejor usar switch
+
+```{r}
+calculate <- function(x,y,op) {
+  switch (op,
+    suma = x+y,
+    resta = x-y,
+    multiplicacion = x*y,
+    division = x/y,
+    stop("error mi bro!")
+  )
+}
+```
+
+```{r}
+calculate(2,3,"suma")
+```
+#importante poner alertas si condiciones basicas no se cumplen en las funciones
+
+por ejemplo: funcion que calcula peso ponderado, pero quizas la longitud de los pesos no es igual a la longitud de los datos
+```{r}
+wt_mean <- function(x,w){
+  if(length(x) != length (w)){
+    stop("'x' y 'w' no tienen la misma longitud")
+  }
+  sum(x*w)/sum(w)
+}
+```
+
+y se comprueba la alerta
+```{r}
+wt_mean(1:6,1:3)
+```
+#otra forma mejor de prevenir errores con STOPIFNOT
+```{r}
+wt_mean <- function(x,w,na.rm=TRUE){
+  stopifnot(is.logical(na.rm),
+            length(na.rm)==1,
+            length(x)==length(w)
+  )
+if(na.rm){
+  missing <- is.na(x) | is.na(w)
+  x <- x[!missing]
+  w <- w[!missing]
+  }
+  sum(x*w)/sum(w)
+  }
+```
+
+```{r}
+wt_mean(1:6,1:6)
+```
+Creando funciones con ...
+```{r}
+rule <- function(...,pad="#"){
+  title1 <- paste0(...)
+  width <- getOption("width") - nchar(title1) -5
+  cat(stringr::str_dup(pad,width/2)," ",title1," ", str_dup(pad,width/2))
+}
+```
+
+```{r}
+rule("VIDEO VARIABLES DE RETORNO")
+```
+se usa return(0) para etrminar la funcin si no comple crierios
+```{r}
+my_function <- function(x,y,z){
+  if(length(x)==0||length(y)==0){
+    return(0) #termina la funcion
+  }
+  #el codigo sigue mas adelante con otras funciones
+}
+```
+
+La funcion INVISIBLE permite devolver el input de la funcion, en este caso el Dataframe tambien como variable de retorno
+```{r}
+show_nas <- function(df){
+  n <- sum(is.na(df))
+  cat("Número de NAs: ",n, "\n", sep="")
+  invisible(df)
+}
+```
+
+```{r}
+x <- show_nas(mtcars)
+```
+
+```{r}
+class(x)
+```
+
+```{r}
+dim(x)
+```
+simulamos NAs para probar la funcion
+```{r}
+mtcars %>%
+  show_nas() %>%
+  mutate(mpg = ifelse(mpg>20,NA,mpg)) %>%
+  show_nas()
+```
+
+```{r}
+mean(c(1,2,3,4,100),trim = 0.5)
+```
+```{r}
+rule("VIDEO DE VECTORES")
+```
+
+#####################   VIDEO DE VECTORES   #####################
+
+```{r}
+#vector atomico: logica, integer, double (numeric), character, complex, raw
+#listas: vectores recursivos y heterogeneos
+ #NA -> ausencia de un valor dentro de un vector
+ #NULL -> ausencia del vector, es como un vector de longitud cero
+```
+
+```{r}
+typeof(letters)
+length(letters)
+```
+
+```{r}
+typeof(1:30)
+```
+
+```{r}
+x <- list("a","b",1:10)
+typeof(x)
+```
+#vectores aumentados
+# factor: vector aumentado sobre vectores enteros
+# date y datetime: vector aumentado sobre vectores numericos
+# data frame y tibble: vector aumentado sobre listas
+
+
+
+#vectores atómicos
+#Logicos: True, False, NA
+```{r}
+1:10 %%3 ==0
+```
+#numerico
+```{r}
+typeof(1) #double
+typeof(1L) #integer, la "L" lo convierte a entero
+```
+
+ojo que 2 al cuadrado no es 4 exacto si se compara, mejor usar near
+```{r}
+x <- sqrt(2)^2
+x-2
+dplyr::near(x,2) #verdadero, 2 igual a raiz de 4
+x==2 #falso, 2 no es igual a raiz de 4
+```
+#Castings
+```{r}
+as.logical(c(1,0,0,0,1))
+as.integer(c(T,F,F,F,T))
+as.double(c(1,2,3))
+as.character(c(1,2,3))
+```
+
+```{r}
+x <- sample(20,size=100,replace=TRUE)
+y <- x>10
+```
+
+#de valores logicos a enteros
+```{r}
+sum(y) #cuantos elemtnos >10 hay en el array?
+mean(y) #que proporcion de elemntos son >10?
+```
+#nombrando un vector
+```{r}
+c(x=4, y =3, z= -1)
+```
+#otra forma
+```{r}
+set_names(1:3,c("x","y","z"))
+```
+
+```{r}
+rule("sub conjunto de vectores")
+```
+##################   sub conjunto de vectores   ##################
+
+```{r}
+x <- letters
+x
+```
+#subsetting normal
+```{r}
+x[c(3,2,6)]
+```
+#si pides repitiendo la posicion, repote el output
+```{r}
+x[c(1,1,7,7,7,3,3,3)]
+```
+#elimina posiciones especificas
+```{r}
+x[c(-3,-5,-7)]
+```
+elimina del 6 al 15
+```{r}
+x[-c(6:15)]
+```
+```{r}
+x <- c(4,5,8,NA,2,1,3,NA)
+```
+
+#filtrando NAs
+```{r}
+x[!is.na(x)]
+```
+filtrando multiplos de 2
+```{r}
+x[x%%2==0]
+```
+
+#filtrando una matrix
+```{r}
+x <- matrix(1:9,byrow=T,ncol=3)
+x
+```
+
+```{r}
+x[1,]
+```
+```{r}
+x[,1]
+```
+
+```{r}
+x[-2,]
+```
+```{r}
+x[,-1]
+```
+filtros de doble corchete
+```{r}
+x <- c(abc=1,def=2,ghi=3)
+```
+
+#reordena y repite
+```{r}
+x[c("def","abc","abc")]
+```
+filtra manteniendo el objeto original
+```{r}
+x["abc"]
+```
+filtra el dato de manera limpia, doble corchete
+```{r}
+x[["abc"]]
+```
+Describe la diferencia entre  is.finite(x) y !is.infinite(x).
+
+is.finite devuelve un vector de la misma longitud que x cuyo p elemento es TRUE si x[p] es finito (es decir, no es uno de los valores NA, NaN, Inf o -Inf) y FALSE en caso contrario.
+
+
+
+!is.infinite devuelve un vector de la misma longitud que x cuyo p elemento es
+
+TRUE si x[p] es finito o NA o NAN. En estos dos últimos valores (NA, Nan) radica la diferencia
+
+
+
+x <- c(5, 6 , 258, Inf, -Inf, NaN, NA)
+
+is.finite (x) = > [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+
+is.infinite(x) = > [1] FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
+
+!is.infinite(x) = > [1]  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
+
+
+
+
+
+Lee el código fuente de la función  dplyr::near() Para ello elimina los paréntesis () del final. ¿Cómo funciona y qué hace?
+
+Esta es una forma segura de comparar si dos vectores de números de coma flotante son (por pares) iguales. Esto es más seguro que usarlo ==, porque tiene una tolerancia incorporada.
+
+
+
+dplyr::near
+
+
+
+function (x, y, tol = .Machine$double.eps^0.5)
+
+{
+
+  abs(x - y) < tol
+
+}
+
+
+
+<bytecode: 0x0000016ad3b1ee10>
+
+<environment: namespace:dplyr>
+
+
+
+Un vector lógico puede tomar tres posibles valores. ¿Cuantos puede tomar un vector de enteros? ¿Y uno de doubles? Usa Google para investigar un poco la naturaleza de estos tipos de datos en R.
+
+vector de enteros:  representa, generalmente, un conjunto de enteros de 32 bits cuyo rango va desde el -2.147.483.648 al 2.147.483.647, así como las operaciones que se pueden realizar con los enteros, como son la suma, la resta, y la multiplicación
+
+
+
+vector de doubles: El formato de punto flotante de doble precisión (a veces llamado FP64 o float64 ) es un formato de número de computadora , que generalmente ocupa 64 bits en la memoria de la computadora; representa un amplio rango dinámico de valores numéricos mediante el uso de un punto de base flotante
+
+Investiga qué función del paquete rear permite convertir un string en un vector lógico, de enteros o de doubles.
+
+Las funciones parse toman un vector de caracteres y nos devuelven un vector especifico del tipo de dato que nos interesa. Procesa un conjunto de valoresde caracteres y nos devuelve el tipo de datos requerido.
+
+
+
+
+
+str(parse_logical(c('TRUE', 'FALSE', 'NA', 'FALSE')))
+
+str(parse_integer(c('1', '2', '4', '25')))
+
+str(parse_date(c('2021-01-30', '2021-07-12')))
+
+str(parse_date(c('2021/01/30', '2021/07/12')))
+
+
+
+
+
+parse_double('3,15', locale=locale(decimal_mark= ","))
+
+
+
+¿Qué nos dice la función mean(is.na(x))  acerca del vector x? ¿Y la función sum(!is.finite(x))?
+
+mean(is.na(x)) calcula la proporción de valores NA y Nan en un vector
+
+sum(!is.finite(x)) calcula la suma de los valores Inf, - Inf, Na y Nan de un vector
+
+ 
+
+Lee detalladamente la documentación de is.vector(). ¿Para qué puede usarse? ¿Por qué la función is.atomic() no coincide con la declaración de vectores atómicos que hemos dado inicialmente?
+
+ejer63 <- c (a = 1, b = 2)
+
+is.vector (ejer63)
+
+
+
+
+
+is.vector devuelve TRUE si es un vector del modo especificado que no tiene más atributos que nombres . Vuelve de FALSE otra manera.
+
+
+
+La función is.atomic()comprueba explícitamente si un objeto es uno de los tipos atómicos ("logical", "integer", "numeric"(sinónimo "double"), "complex", "character"y "raw")
+
+
+
+is.atomic(c(T,T, 1,2L, "a"))
+
+is.vector(c(T,T, 1,2L, "a"))
+
+Compara y contrasta las funciones setNames() y purrr::set_names().
+
+setNames. Esta es una función de conveniencia que establece los nombres de un objeto y lo devuelve. Es más útil al final de una definición de función donde uno está creando el objeto que se va a devolver y preferiría no almacenarlo con un nombre solo para que se puedan asignar los nombres.
+
+
+
+setNames (1:2, nm = c ("Javier", "Ana"))
+
+setNames (1: 4, c ("zoo", "bar", "var"))
+
+setNames (1: 4, nm = c ("zoo", "bar", "var"))
+
+
+
+purrr::set_names() sirve para establecer nombres en un vector. Argumentos:
+
+### x, vector para nombrar
+
+### nm, Vector de nombres, de la misma longitud que x .Puede especificar nombres
+
+de tres formas: Si no hace nada, x se nombrará consigo mismo; puede proporcionar un vector de caracteres nm o cadenas individuales en `... ''; si x ya tiene nombres, puede proporcionar una función o fórmula para transformar los nombres existentes
+
+
+
+purrr::set_names (1: 4, nm = c ("zoo", "bar", "var", "zzz"))
+
+Crea una función que a partir de un vector de entrada devuelva:
+
+Solo los números impares (y por supuesto no los NAs).
+Todos los elementos excepto el último
+Los elementos en posiciones impares
+El último valor (¿debes usar [ o [[?)
+Crea una función que a partir de un vector de entrada devuelva solo los números impares (y por supuesto no los NAs).
+
+ejer81<- function(x){
+
+  x[x %% 2 != 0 & !is.na (x)]
+
+}
+
+
+
+x <- c(4,5,8,NA,253,1,3,NA)
+
+ejer81(x)
+
+[1]   5 253   1   3
+
+
+
+Crea una función que a partir de un vector de entrada devuelva todos los elementos excepto el último
+
+
+
+ejer82<- function(x){
+
+  x[-c (length(x-1))]
+
+}
+
+
+
+x <- c(4,5,8,NA,253,1,10,5,63,25,NA)
+
+ejer82(x)
+
+[1]   4   5   8  NA 253   1  10   5  63  25
+
+
+
+
+
+Crea una función que a partir de un vector de entrada devuelva los elementos en posiciones impares
+
+
+
+ejer83<- function(x){
+
+  y <-seq(length(x))
+
+  x[y %% 2 != 0]
+
+}
+
+x <- c(4,5,8,253,1,10,5,63,25)
+
+ejer83(x)
+
+[1]  4  8  1  5 25
+
+
+
+Crea una función que a partir de un vector de entrada devuelva el ultimo valor(?que debes usar [ o [[?)
+
+
+
+ejer84 <- function(x){
+
+  y <-length(x)
+
+  x[[y]]
+
+}
+
+
+
+ejer84(x)
+
+
+
+
+
+ejer85 <- function(x){
+
+x[length(x)]
+
+}
+
+ejer85(x)
+
+[1] 25
+
+¿Por qué  x[-which(x > 0)] no es lo mismo que x[x <= 0]?
+
+
+
+x <- c(4,5,8,253,1,10,5,63,25, -Inf, Inf, NaN, NA)
+
+
+
+x[-which(x > 0)]
+
+[1] -Inf  NaN   NA
+
+
+
+x[x <= 0]
+
+[1] -Inf   NA   NA
+
+
+
+Devuelven los mismos valores, excepto cuando un valor es NaN en la expresión que no usa which. Es entonces cuando el valor NaN es considerado un NA.
+
+
+
+which() es una funcón que devuelve los índices para los que es el argumento TRUE. Esto significa que no incluye los índices para los que el argumento es FALSE o NA.
+
+x[-which(x > 0)]termina descartando los elementos para los que x > 0 es verdadero y conserva todos los demás elementos y sus valores originales, incluidos NA y NaN.
+
+
+
+¿Qué ocurre cuando haces un subconjunto con un entero superior a la longitud del vector?
+z <- letters
+
+z
+
+z[2]
+
+z[30]
+
+[1] NA
+
+
+
+x2 <- c(a = 10, b = 20)
+
+
+
+x2[["a"]]
+
+x2[["c"]]
+
+Error in x2[["c"]] : subscript out of bounds
+
+
+
+¿Qué ocurre cuando haces un subconjunto con un nombre de variable que no existe en el vector?
+
+Que devuelve un NA o un error si "subindice fuera de los limites".
+
+
+
+x2 <- c(a = 10, b = 20)
+
+x2['c']
+
+
+
+<NA>
+
+  NA

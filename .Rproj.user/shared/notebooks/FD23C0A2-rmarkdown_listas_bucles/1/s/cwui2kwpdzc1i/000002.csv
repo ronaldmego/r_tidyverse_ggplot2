@@ -1,0 +1,5 @@
+"0","rule <- function(...,pad=""#""){"
+"0","  title1 <- paste0(...)"
+"0","  width <- getOption(""width"") - nchar(title1) -5"
+"0","  cat(stringr::str_dup(pad,width/2),"" "",title1,"" "", str_dup(pad,width/2))"
+"0","}"

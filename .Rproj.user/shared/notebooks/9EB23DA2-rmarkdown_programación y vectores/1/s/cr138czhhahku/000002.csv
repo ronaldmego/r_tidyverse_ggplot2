@@ -1,0 +1,2 @@
+"0","x <- sample(20,size=100,replace=TRUE)"
+"0","y <- x>10"

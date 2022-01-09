@@ -1,0 +1,187 @@
+---
+title: "Listas y Bucles"
+author: "Ronald Mego"
+date: "4/1/2022"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+Creando funciones con ...
+```{r}
+rule <- function(...,pad="#"){
+  title1 <- paste0(...)
+  width <- getOption("width") - nchar(title1) -5
+  cat(stringr::str_dup(pad,width/2)," ",title1," ", str_dup(pad,width/2))
+}
+```
+
+```{r}
+rule("VIDEO LISTAS")
+```
+#########################   VIDEO LISTAS   #########################
+
+
+```{r}
+x <- list(
+  a=1:3,
+  b="soy un string",
+  c=pi,
+  d=list(-2,-5)
+)
+x
+```
+
+#str permite ver la estructura de las listas
+```{r}
+str(x)
+```
+#slicing de listas
+
+```{r}
+x[1:2]
+```
+
+```{r}
+str(x[1:2])
+```
+
+```{r}
+x[4]
+```
+```{r}
+str(x[4])
+```
+
+```{r}
+x[c("a","c")]
+```
+
+#pra extraer el valor de la lista se usa doble corchete
+```{r}
+x[[1]]
+```
+ahora la estructura cambia de lista a entero
+```{r}
+str(x[[1]])
+```
+
+si ahora quiero obtener el primer elemento, en este caso el 1:
+
+```{r}
+x[[1]][[1]]
+```
+#atributos--------------------------------
+
+asi asignamos atributos
+```{r}
+attr(x,"desc")
+attr(x,"desc") <- "Vector de las horas del dia"
+attr(x,"created") <- "Ronald Mego"
+attr(x,"source") <- "Curso Tidyverse"
+```
+
+#asi vemos los atributos creados
+```{r}
+attributes(x)
+```
+#Augmented Vectors ------------------------
+
+#factor
+```{r}
+x <- factor(c("L","M","J","V","S","D"),
+            levels = c("L","M","X","J","V","S","D")
+            )
+x
+```
+
+```{r}
+attributes(x)
+```
+#date & date-time
+```{r}
+x <- as.Date("1988-05-19")
+typeof(x)
+```
+
+```{r}
+attributes(x)
+```
+#segundos desde el epoc 1970
+```{r}
+unclass(x)
+```
+#POSIXct
+```{r}
+x <- lubridate::ymd_hm("1988-05-19 16:30")
+```
+
+```{r}
+typeof(x)
+```
+attributos
+```{r}
+attributes(x)
+```
+
+```{r}
+unclass(x)
+```
+#podemos editar el atributo Time Zone para cambiar la zona horaria
+```{r}
+attr(x,"tzone") <- "US/Pacific"
+x
+```
+#tibble
+```{r}
+tb <- tibble(x=1:5,y=6:10)
+typeof(tb)
+```
+
+```{r}
+attributes(tb)
+```
+```{r}
+hms::hms(3600)
+```
+```{r}
+rule("VIDEO BUCLE")
+```
+
+########################   VIDEO BUCLE   ########################
+
+```{r}
+t <- tibble(
+  a=rnorm(100),
+  b=rnorm(100),
+  c=rnorm(100),
+  d=rnorm(100),
+  e=rnorm(100)
+)
+```
+
+
+```{r}
+median(t$a)
+median(t$b)
+median(t$c)
+median(t$d)
+median(t$e)
+```
+usando un bucle para autoamtizar estos calculos
+```{r}
+output <- vector("double",ncol(t)) #crea un vector vacio
+#luego lo llenamos
+for(i in seq_along(t)){
+  output[[i]] <- median(t[[i]])
+}
+output
+```
+
+```{r}
+
+```
+
+

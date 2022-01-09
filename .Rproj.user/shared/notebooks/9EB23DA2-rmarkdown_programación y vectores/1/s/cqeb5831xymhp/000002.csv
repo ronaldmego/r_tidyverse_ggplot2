@@ -1,0 +1,5 @@
+"0","df$a <- (df$a-min(df$a, na.rm = TRUE))/(max(df$a, na.rm = TRUE)-min(df$a, na.rm = TRUE))"
+"0","df$b <- (df$a-min(df$b, na.rm = TRUE))/(max(df$b, na.rm = TRUE)-min(df$b, na.rm = TRUE))"
+"0","df$c <- (df$a-min(df$c, na.rm = TRUE))/(max(df$c, na.rm = TRUE)-min(df$c, na.rm = TRUE))"
+"0","df$d <- (df$a-min(df$d, na.rm = TRUE))/(max(df$d, na.rm = TRUE)-min(df$d, na.rm = TRUE))"
+"0","df$e <- (df$a-min(df$e, na.rm = TRUE))/(max(df$e, na.rm = TRUE)-min(df$e, na.rm = TRUE))"

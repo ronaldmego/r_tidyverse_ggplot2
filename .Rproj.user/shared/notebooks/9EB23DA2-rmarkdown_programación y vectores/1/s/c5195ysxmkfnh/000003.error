@@ -1,0 +1,1 @@
+{"frames":[{"func":"wt_mean(1:6, 1:3)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0},{"func":"stop(\"'x' y 'w' no tienen la misma longitud\")","file":"","line_number":3,"end_line_number":3,"character_number":5,"end_character_number":49}],"message":"Error in wt_mean(1:6, 1:3) : 'x' y 'w' no tienen la misma longitud\n"}

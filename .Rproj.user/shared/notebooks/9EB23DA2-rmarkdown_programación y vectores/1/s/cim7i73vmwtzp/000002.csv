@@ -1,0 +1,6 @@
+"0","my_function <- function(x,y,z){"
+"0","  if(length(x)==0||length(y)==0){"
+"0","    return(0)"
+"0","  }"
+"0","  #el codigo sigue mas adelante con otras funciones"
+"0","}"

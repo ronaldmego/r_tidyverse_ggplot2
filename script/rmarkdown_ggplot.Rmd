@@ -352,6 +352,8 @@ demo_diamonds<-tribble(
 #generando barras a partir de datos ponderados
 ggplot(data=demo_diamonds)+
   geom_bar(mapping = aes(x=cut,y=freqs),stat="identity")
+  xlab("Time of day") + ylab("Total bill") +
+  ggtitle("Average bill for 2 people")
 ```
 ```{r}
 #sin embargo es mejor usar geom_col cuando ya existe la variable ponderada,...

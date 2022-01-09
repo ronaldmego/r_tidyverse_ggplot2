@@ -1,0 +1,5 @@
+"0","df$a <- rescale_0_1(df$a)"
+"0","df$b <- rescale_0_1(df$b)"
+"0","df$c <- rescale_0_1(df$c)"
+"0","df$d <- rescale_0_1(df$d)"
+"0","df$e <- rescale_0_1(df$e)"

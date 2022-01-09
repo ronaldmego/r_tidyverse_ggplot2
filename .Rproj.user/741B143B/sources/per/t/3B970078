@@ -1,0 +1,29 @@
+{
+    "id": "3B970078",
+    "path": "D:/Documents/GitHub/r_tidyverse_ggplot2/script/rmarkdown_tidyverse.Rmd",
+    "project_path": "script/rmarkdown_tidyverse.Rmd",
+    "type": "r_markdown",
+    "hash": "2163565040",
+    "contents": "",
+    "dirty": false,
+    "created": 1640573107298.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "19,13",
+        "scrollLine": "0",
+        "last_setup_crc32": "",
+        "useRainbowParens": "true"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1640580033,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1641309396297,
+    "read_only": false,
+    "read_only_alternatives": []
+}

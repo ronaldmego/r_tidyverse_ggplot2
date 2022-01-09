@@ -1,0 +1,4 @@
+"0","wt_mean(1:6,1:3)
+"
+"2","Error in wt_mean(1:6, 1:3) : 'x' y 'w' no tienen la misma longitud
+"
